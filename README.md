@@ -1,5 +1,5 @@
 ## AgroConnect Web Services wiki Documentation
-desarrollado con Spring Boot y Java 22.
+Desarrollado con Spring Boot y Java 22.
 
 ### Características Principales
 - Desarrollo de APIs RESTful con operaciones CRUD.
