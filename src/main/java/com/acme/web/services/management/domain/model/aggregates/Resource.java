@@ -19,7 +19,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     private Name name;
     @Enumerated(EnumType.STRING)
     @Embedded
-    private ResourceType type;
+    private ResourceType resourceType;
     @Embedded
     private Quantity quantity;
     @Embedded
@@ -45,7 +45,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
      */
     public Resource(Name name, ResourceType type, Quantity quantity, DateOfCreation date, Observations observations, Breeder breeder) {
         this.name = name;
-        this.type = type;
+        this.resourceType = type;
         this.quantity = quantity;
         this.date = date;
         this.observations = observations;
@@ -59,7 +59,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
      */
     public Resource(CreateResourceCommand command, Breeder breeder) {
         this.name = new Name(command.name());
-        this.type = ResourceType.valueOf(command.type().toUpperCase());
+        this.resourceType = new ResourceType(command.type().toUpperCase());
         this.quantity = new Quantity(command.quantity());
         this.date = new DateOfCreation(command.date());
         this.observations = new Observations(command.observations());
@@ -72,7 +72,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     }
 
     public void updateType(String type) {
-        this.type = ResourceType.valueOf(type.toUpperCase());
+        this.resourceType = new ResourceType(type.toUpperCase());
     }
 
     public void updateQuantity(Integer quantity) {
@@ -88,23 +88,25 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     }
 
     //Getters
-    public Name name() {
-        return name;
+    public String getName() {
+        return name.name();
     }
 
-    public ResourceType type() {
-        return type;
+    public String getType() {
+        return resourceType.type();
     }
 
-    public Quantity quantity() {
-        return quantity;
+    public Integer getQuantity() {
+        return quantity.quantity();
     }
 
-    public DateOfCreation date() {
-        return date;
+    public Date getDate() {
+
+        return date.date();
     }
 
-    public Observations observations() {
-        return observations;
+    public String getObservations() {
+
+        return observations.observations();
     }
 }
