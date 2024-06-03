@@ -3,6 +3,7 @@ package com.acme.web.services.user.application.internal.queryservices;
 import com.acme.web.services.user.domain.model.entities.Notification;
 import com.acme.web.services.user.domain.model.queries.GetAllNotificationsQuery;
 import com.acme.web.services.user.domain.model.queries.GetNotificationByIdQuery;
+import com.acme.web.services.user.domain.model.queries.GetNotificationsByUserIdQuery;
 import com.acme.web.services.user.domain.services.NotificationQueryService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.NotificationRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class NotificationQueryServiceImpl implements NotificationQueryService {
     @Override
     public Optional<Notification> handle(GetNotificationByIdQuery query){
         return notificationRepository.findById(query.notificationId());
+    }
+
+    @Override
+    public List<Notification> handle(GetNotificationsByUserIdQuery query){
+        return notificationRepository.findByUserId(query.userId());
     }
 
 }

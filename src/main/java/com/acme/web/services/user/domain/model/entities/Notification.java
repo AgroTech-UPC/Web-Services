@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -22,13 +21,13 @@ public class Notification {
     @NotNull
     private String text;
     @NotNull
-    private Instant date;
+    private Date date;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Notification(String type, String text, Instant date, User user) {
+    public Notification(String type, String text, Date date, User user) {
         this.type = type;
         this.text = text;
         this.date = date;
