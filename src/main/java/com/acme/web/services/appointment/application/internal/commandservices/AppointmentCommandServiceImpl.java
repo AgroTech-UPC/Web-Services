@@ -3,6 +3,7 @@ package com.acme.web.services.appointment.application.internal.commandservices;
 import com.acme.web.services.appointment.domain.model.commands.CreateAppointmentCommand;
 import com.acme.web.services.appointment.domain.model.aggregates.Appointment;
 import com.acme.web.services.appointment.domain.model.commands.UpdateAppointmentCommand;
+import com.acme.web.services.appointment.domain.model.valueObjects.Status;
 import com.acme.web.services.appointment.domain.services.AppointmentCommandService;
 import com.acme.web.services.appointment.infrastructure.persistance.jpa.repositories.AppointmentRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
@@ -48,7 +49,15 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
             throw new IllegalArgumentException("Appointment does not exist");
         }
 
-        appointment.get().setStatus(command.status()); // Use status() instead of newStatus()
+        // Convert the status string to a Status enum
+        Status newStatus;
+        try {
+            newStatus = Status.valueOf(command.status().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid status: " + command.status());
+        }
+
+        appointment.get().setStatus(newStatus);
         try {
             appointmentRepository.save(appointment.get());
         } catch (Exception e) {

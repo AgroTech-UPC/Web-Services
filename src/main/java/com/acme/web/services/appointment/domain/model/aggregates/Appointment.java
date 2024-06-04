@@ -20,7 +20,9 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
     @Column(name="date")
     private final DateAppointment date;
 
-    @Embedded
+    @Getter
+    @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name="status")
     private Status status;
 
@@ -34,32 +36,24 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
 
     public Appointment(){
         this.date = new DateAppointment();
-        this.status = new Status();
+        this.status = Status.PENDIENTE; // Default status
     }
 
     public Appointment(CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
-        this.status = new Status(command.status());
+        this.status = Status.valueOf(command.status());
     }
 
     public Appointment(Breeder breeder, Advisor advisor, CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
-        this.status = new Status(command.status());
+        this.status = Status.valueOf(command.status());
         this.breeder = breeder;
         this.advisor = advisor;
-    }
-
-    public void setStatus(String newStatus) {
-        this.status = new Status(newStatus);
     }
 
     public Date getAppointmentDate(){
         return this.date.date();
     }
-
-    public String getStatus() { return this.status.status();}
-
-
 
 
 }
