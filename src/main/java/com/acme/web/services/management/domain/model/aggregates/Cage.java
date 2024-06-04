@@ -11,14 +11,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
 public class Cage extends AuditableAbstractAggregateRoot<Cage> {
+    //setters
+    @Setter
     @Embedded
     private Name name;
+    @Setter
     @Embedded
     private Size size;
+    @Setter
     @Embedded
     private Observations observations;
 
@@ -26,7 +31,12 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
     @JoinColumn(name = "breeder_id")
     private Breeder breeder;
 
-    public Cage(){}
+    public Cage(String name, Integer size, String observations, Breeder breeder){
+        this.name = new Name(name);
+        this.size = new Size(size);
+        this.observations = new Observations(observations);
+        this.breeder = breeder;
+    }
 
     public Cage(Name name, Size size, Observations observations, Breeder breeder) {
         this.name = name;
@@ -41,6 +51,8 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.observations = new Observations(command.observations());
         this.breeder = breeder;
     }
+
+    public Cage() {}
 
     //getters
     public String name() {
