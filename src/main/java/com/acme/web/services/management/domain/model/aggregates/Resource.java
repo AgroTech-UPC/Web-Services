@@ -17,7 +17,6 @@ import java.util.Date;
 public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     @Embedded
     private Name name;
-    @Enumerated(EnumType.STRING)
     @Embedded
     private ResourceType resourceType;
     @Embedded
