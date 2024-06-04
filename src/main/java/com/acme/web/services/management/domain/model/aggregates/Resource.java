@@ -7,7 +7,8 @@ import com.acme.web.services.user.domain.model.entities.Breeder;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 /**
  * Resource entity
@@ -78,7 +79,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
         this.quantity = new Quantity(quantity);
     }
 
-    public void updateDate(Date date) {
+    public void updateDate(LocalDate date) {
         this.date = new DateOfCreation(date);
     }
 
@@ -99,7 +100,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
         return quantity.quantity();
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
 
         return date.date();
     }

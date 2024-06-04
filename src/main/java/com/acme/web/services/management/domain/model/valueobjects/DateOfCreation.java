@@ -1,8 +1,8 @@
 package com.acme.web.services.management.domain.model.valueobjects;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public record DateOfCreation(Date date) {
+public record DateOfCreation(LocalDate date) {
     public DateOfCreation {
         if (date == null) {
             throw new IllegalArgumentException("Resource date cannot be null");
