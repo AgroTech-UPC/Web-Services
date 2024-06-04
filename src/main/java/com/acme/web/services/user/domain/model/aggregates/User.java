@@ -2,24 +2,25 @@ package com.acme.web.services.user.domain.model.aggregates;
 
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import com.acme.web.services.user.domain.model.commands.CreateUserCommand;
+import com.acme.web.services.user.domain.model.entities.Notification;
 import com.acme.web.services.user.domain.model.valueobjects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
-@Getter
+
 @Entity
 public class User extends AuditableAbstractAggregateRoot<User>{
     @Embedded
     @Column(name="email")
     private final EmailAddress emailAddress;
-
     @Embedded
     @Column(name="password")
     private final Password password;
-
     @Embedded
     @Column(name="fullname")
     private final Fullname fullname;
@@ -36,6 +37,9 @@ public class User extends AuditableAbstractAggregateRoot<User>{
     @Column(name="description")
     private final Description description;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Notification> notifications;
+
     public User(){
         this.emailAddress = new EmailAddress();
         this.password = new Password();
@@ -43,6 +47,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
         this.location = new Location();
         this.birthdate = new Birthdate();
         this.description = new Description();
+        this.notifications = new ArrayList<>();
     }
 
     public User(CreateUserCommand command){
@@ -54,7 +59,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
         this.description = new Description(command.description());
     }
 
-    public User(String email, String password, String fullname, String location, Date birthdate, String description){
+    public User(String email, String password, String fullname, String location, LocalDate birthdate, String description){
         this.emailAddress = new EmailAddress(email);
         this.password = new Password(password);
         this.fullname = new Fullname(fullname);
@@ -79,7 +84,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
         return this.location.location();
     }
 
-    public Date getBirthdate(){
+    public LocalDate getBirthdate(){
         return this.birthdate.birthdate();
     }
 
