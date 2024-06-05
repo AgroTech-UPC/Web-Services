@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public record DateOfCreation(LocalDate date) {
     public DateOfCreation {
         if (date == null) {
-            throw new IllegalArgumentException("Resource date cannot be null");
+            throw new IllegalArgumentException("Date cannot be null");
         }
     }
 }
