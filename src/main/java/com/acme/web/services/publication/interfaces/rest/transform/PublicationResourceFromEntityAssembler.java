@@ -10,6 +10,7 @@ public class PublicationResourceFromEntityAssembler {
                 entity.getPublicationContent().title(),
                 entity.getPublicationContent().description(),
                 entity.getPublicationContent().image(),
-                entity.getDate());
+                entity.getDate(),
+                entity.getAdvisor().getId());
     }
 }

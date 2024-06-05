@@ -31,7 +31,10 @@ public class PublicationsController {
     @PostMapping
     public ResponseEntity<PublicationResource> createPublication(@RequestBody CreatePublicationResource resource) {
         var createPublicationCommand = CreatePublicationCommandFromResourceAssembler.toCommandFromResource(resource);
-        var publication = publicationCommandService.handle(createPublicationCommand);
+        var publicationId = publicationCommandService.handle(createPublicationCommand);
+        if (publicationId == 0L) return ResponseEntity.badRequest().build();
+        var getPublicationByIdQuery = new GetPublicationByIdQuery(publicationId);
+        var publication = publicationQueryService.handle(getPublicationByIdQuery);
         if (publication.isEmpty()) return ResponseEntity.badRequest().build();
         var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
         return new ResponseEntity<>(publicationResource, HttpStatus.OK);

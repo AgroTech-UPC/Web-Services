@@ -9,7 +9,8 @@ public class CreatePublicationCommandFromResourceAssembler {
                 resource.title(),
                 resource.description(),
                 resource.image(),
-                resource.date()
+                resource.date(),
+                resource.advisorId()
         );
     }
 }

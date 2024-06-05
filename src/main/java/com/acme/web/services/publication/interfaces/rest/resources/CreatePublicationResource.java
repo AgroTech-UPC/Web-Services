@@ -6,4 +6,5 @@ public record CreatePublicationResource(
         String title,
         String description,
         String image,
-        Date date) {}
+        Date date,
+        Long advisorId) {}
