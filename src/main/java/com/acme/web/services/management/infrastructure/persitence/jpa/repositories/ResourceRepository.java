@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * JPA Repository for Resource entity.
+ */
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
     Optional<Resource> findByBreederId(Long breederId);
     boolean existsByBreederId(Long breederId);

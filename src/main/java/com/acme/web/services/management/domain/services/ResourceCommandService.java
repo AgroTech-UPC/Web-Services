@@ -7,6 +7,9 @@ import com.acme.web.services.management.domain.model.commands.UpdateResourceComm
 
 import java.util.Optional;
 
+/**
+ * Resource command service interface.
+ */
 public interface ResourceCommandService {
     Long handle(CreateResourceCommand command);
     Optional<Resource> handle(UpdateResourceCommand command);
