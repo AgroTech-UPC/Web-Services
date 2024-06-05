@@ -1,5 +1,6 @@
 package com.acme.web.services.publication.interfaces.rest;
 
+import com.acme.web.services.publication.domain.model.commands.DeletePublicationCommand;
 import com.acme.web.services.publication.domain.model.queries.GetAllPublicationsQuery;
 import com.acme.web.services.publication.domain.model.queries.GetPublicationByIdQuery;
 import com.acme.web.services.publication.domain.services.PublicationCommandService;
@@ -58,4 +59,12 @@ public class PublicationsController {
         var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
         return ResponseEntity.ok(publicationResource);
     }
+
+    @DeleteMapping("/{publicationId}")
+    public ResponseEntity<?> deletePublication(@PathVariable Long publicationId) {
+        var deletePublicationCommand = new DeletePublicationCommand(publicationId);
+        publicationCommandService.handle(deletePublicationCommand);
+        return ResponseEntity.ok("Publication with given id successfully deleted");
+    }
+
 }

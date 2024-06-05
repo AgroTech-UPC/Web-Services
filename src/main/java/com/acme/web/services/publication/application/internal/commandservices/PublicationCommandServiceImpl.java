@@ -2,6 +2,7 @@ package com.acme.web.services.publication.application.internal.commandservices;
 
 import com.acme.web.services.publication.domain.model.aggregates.Publication;
 import com.acme.web.services.publication.domain.model.commands.CreatePublicationCommand;
+import com.acme.web.services.publication.domain.model.commands.DeletePublicationCommand;
 import com.acme.web.services.publication.domain.services.PublicationCommandService;
 import com.acme.web.services.publication.infrastructure.persistence.jpa.repositories.PublicationRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
@@ -32,4 +33,17 @@ public class PublicationCommandServiceImpl implements PublicationCommandService 
         }
         return publication.getId();
     }
+
+    @Override
+    public void handle(DeletePublicationCommand command) {
+        if (!publicationRepository.existsById(command.publicationId())) {
+            throw new IllegalArgumentException("Publication does not exist");
+        }
+        try {
+            publicationRepository.deleteById(command.publicationId());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error while deleting publication: " + e.getMessage());
+        }
+    }
+
 }
