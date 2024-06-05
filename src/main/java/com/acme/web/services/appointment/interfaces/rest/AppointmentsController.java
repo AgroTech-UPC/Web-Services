@@ -2,14 +2,18 @@ package com.acme.web.services.appointment.interfaces.rest;
 
 
 import com.acme.web.services.appointment.domain.model.queries.GetAppointmentByIdQuery;
+import com.acme.web.services.appointment.domain.model.queries.GetReviewsByAppointmentIdQuery;
 import com.acme.web.services.appointment.domain.services.AppointmentCommandService;
 import com.acme.web.services.appointment.domain.services.AppointmentQueryService;
+import com.acme.web.services.appointment.domain.services.ReviewQueryService;
 import com.acme.web.services.appointment.interfaces.rest.resources.CreateAppointmentResource;
 import com.acme.web.services.appointment.interfaces.rest.resources.AppointmentResource;
+import com.acme.web.services.appointment.interfaces.rest.resources.ReviewResource;
 import com.acme.web.services.appointment.interfaces.rest.resources.UpdateAppointmentResource;
 import com.acme.web.services.appointment.interfaces.rest.transform.CreateAppointmentCommandFromResourceAssembler;
 import com.acme.web.services.appointment.interfaces.rest.transform.AppointmentResourceFromEntityAssembler;
 import com.acme.web.services.appointment.domain.model.queries.GetAllAppointmentsQuery;
+import com.acme.web.services.appointment.interfaces.rest.transform.ReviewResourceFromEntityAssembler;
 import com.acme.web.services.appointment.interfaces.rest.transform.UpdateAppointmentCommandFromResourceAssembler;
 
 
@@ -28,10 +32,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AppointmentsController {
     private final AppointmentCommandService appointmentCommandService;
     private final AppointmentQueryService appointmentQueryService;
+    private final ReviewQueryService reviewQueryService;
 
-    public AppointmentsController(AppointmentCommandService appointmentCommandService, AppointmentQueryService appointmentQueryService) {
+    public AppointmentsController(AppointmentCommandService appointmentCommandService, AppointmentQueryService appointmentQueryService, ReviewQueryService reviewQueryService) {
         this.appointmentCommandService = appointmentCommandService;
         this.appointmentQueryService = appointmentQueryService;
+        this.reviewQueryService = reviewQueryService;
     }
 
     @PostMapping
@@ -83,5 +89,18 @@ public class AppointmentsController {
         }
         var updatedAppointmentResource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(updatedAppointment.get());
         return ResponseEntity.ok(updatedAppointmentResource);
+    }
+
+    @GetMapping("/{appointmentId}/reviews")
+    public ResponseEntity<List<ReviewResource>> getAppointmentReviews(@PathVariable Long appointmentId) {
+        var getAppointmentByIdQuery = new GetAppointmentByIdQuery(appointmentId);
+        var appointment = appointmentQueryService.handle(getAppointmentByIdQuery);
+        if (appointment.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        var getReviewsByAppointmentIdQuery = new GetReviewsByAppointmentIdQuery(appointmentId);
+        var reviews = reviewQueryService.handle(getReviewsByAppointmentIdQuery);
+        var reviewResources = reviews.stream().map(ReviewResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(reviewResources);
     }
 }
