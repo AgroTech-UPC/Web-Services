@@ -1,11 +1,11 @@
 package com.acme.web.services.management.interfaces.rest.resources;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record UpdateResourceResource(String name,
                                      String type,
                                      Integer quantity,
-                                     Date date,
+                                     LocalDate date,
                                      String observations,
                                      Long breederId) {
 }

@@ -29,6 +29,12 @@ public class ResourceQueryServiceImpl implements ResourceQueryService {
         return resourceRepository.findById(query.resourceId());
     }
 
+    /**
+     * This method is used to get all resources by type and breeder id
+     * @param query
+     * @return
+     */
+
     @Override
     public List<Resource> handle(GetAllResourcesByTypeAndIdQuery query) {
         return resourceRepository.findAllByResourceTypeAndBreederId(query.type(), query.breederId());

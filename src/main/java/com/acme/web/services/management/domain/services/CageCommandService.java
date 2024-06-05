@@ -7,6 +7,9 @@ import com.acme.web.services.management.domain.model.commands.UpdateCageCommand;
 
 import java.util.Optional;
 
+/**
+ * Cage command service interface.
+ */
 public interface CageCommandService {
     Long handle(CreateCageCommand command);
     Optional<Cage> handle(UpdateCageCommand command);
