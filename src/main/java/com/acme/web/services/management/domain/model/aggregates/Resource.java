@@ -6,24 +6,30 @@ import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAgg
 import com.acme.web.services.user.domain.model.entities.Breeder;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 
 /**
- * Resource entity
+ * Resource aggregate root
  */
 @Getter
 @Entity
 public class Resource extends AuditableAbstractAggregateRoot<Resource> {
+    @Setter
     @Embedded
     private Name name;
-    @Embedded
+    @Setter
+    @Enumerated(EnumType.STRING)
     private ResourceType resourceType;
+    @Setter
     @Embedded
     private Quantity quantity;
+    @Setter
     @Embedded
     private DateOfCreation date;
+    @Setter
     @Embedded
     private Observations observations;
 
@@ -59,32 +65,11 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
      */
     public Resource(CreateResourceCommand command, Breeder breeder) {
         this.name = new Name(command.name());
-        this.resourceType = new ResourceType(command.type().toUpperCase());
+        this.resourceType = ResourceType.valueOf(command.type().toUpperCase());
         this.quantity = new Quantity(command.quantity());
         this.date = new DateOfCreation(command.date());
         this.observations = new Observations(command.observations());
         this.breeder = breeder;
-    }
-
-    //Update methods
-    public void updateName(String  name) {
-        this.name = new Name(name);
-    }
-
-    public void updateType(String type) {
-        this.resourceType = new ResourceType(type.toUpperCase());
-    }
-
-    public void updateQuantity(Integer quantity) {
-        this.quantity = new Quantity(quantity);
-    }
-
-    public void updateDate(LocalDate date) {
-        this.date = new DateOfCreation(date);
-    }
-
-    public void updateObservations(String observations) {
-        this.observations = new Observations(observations);
     }
 
     //Getters
@@ -93,7 +78,7 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     }
 
     public String getType() {
-        return resourceType.type();
+        return this.resourceType != null ? this.resourceType.toString() : "OTROS";
     }
 
     public Integer getQuantity() {

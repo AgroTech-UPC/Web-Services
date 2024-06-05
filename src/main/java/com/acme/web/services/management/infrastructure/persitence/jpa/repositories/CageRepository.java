@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * JPA Repository for Cage entity.
+ */
 public interface CageRepository extends JpaRepository<Cage, Long> {
     List<Cage> findAllByBreederId(Long breederId);
 }

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Implementation of the CageCommandService interface
+ */
 @Service
 public class CageCommandServiceImpl implements CageCommandService {
     private final CageRepository cageRepository;
@@ -24,6 +27,11 @@ public class CageCommandServiceImpl implements CageCommandService {
         this.breederRepository = breederRepository;
     }
 
+    /**
+     * Creates a cage in the database
+     * @param command the command to create a cage
+     * @return the created cage
+     */
     @Override
     public Long handle(CreateCageCommand command) {
         var breeder = breederRepository.findById(command.breederId());
@@ -41,6 +49,11 @@ public class CageCommandServiceImpl implements CageCommandService {
         return cage.getId();
     }
 
+    /**
+     * Updates a cage in the database
+     * @param command the command to update a cage
+     * @return the updated cage
+     */
     @Override
     public Optional<Cage> handle(UpdateCageCommand command) {
         return cageRepository.findById(command.cageId()).map(cage -> {
@@ -51,6 +64,11 @@ public class CageCommandServiceImpl implements CageCommandService {
         });
     }
 
+    /**
+     * Deletes a cage from the database
+     * @param command the command to delete a cage
+     * @return the deleted cage
+     */
     @Override
     public Optional<Cage> handle(DeleteCageCommand command) {
         var cage = cageRepository.findById(command.cageId());

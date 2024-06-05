@@ -20,6 +20,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
 
+/**
+ * CageController
+ */
 @RestController
 @RequestMapping(value = "/api/v1/cages", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Cages", description = "Cage Management Endpoints")
@@ -32,6 +35,7 @@ public class CageController {
         this.cageQueryService = cageQueryService;
     }
 
+    //POST method to create a new cage
     @PostMapping
     public ResponseEntity<CageResource> createCage(@RequestBody CreateCageResource res) {
         var createCageCommand = CreateCageCommandFromResourceAssembler.toCommandFromResource(res);
@@ -48,6 +52,7 @@ public class CageController {
         return new ResponseEntity<>(cageResource, HttpStatus.CREATED);
     }
 
+    //GET method to get all cages
     @GetMapping
     public ResponseEntity<List<CageResource>> getAllCages() {
         var getAllCagesQuery = new GetAllCagesQuery();
@@ -56,6 +61,7 @@ public class CageController {
         return ResponseEntity.ok(cageResources);
     }
 
+    //GET method to get a cage by id
     @GetMapping("/{cageId}")
     public ResponseEntity<CageResource> getCageById(@PathVariable Long cageId) {
         var getCageByIdQuery = new GetCageByIdQuery(cageId);
@@ -67,6 +73,7 @@ public class CageController {
         return ResponseEntity.ok(cageResource);
     }
 
+    //GET method to get all cages by breeder id
     @GetMapping("/breeder/{breederId}")
     public ResponseEntity<List<CageResource>> getCagesByBreederId(@PathVariable Long breederId) {
         var getAllCagesByBreederIdQuery = new GetAllCagesByBreederIdQuery(breederId);
@@ -75,6 +82,7 @@ public class CageController {
         return ResponseEntity.ok(cageResources);
     }
 
+    //PUT method to update a cage
     @PutMapping("/{cageId}")
     public ResponseEntity<CageResource> updateCage(@PathVariable Long cageId, @RequestBody UpdateCageResource res) {
 
@@ -87,6 +95,7 @@ public class CageController {
         return ResponseEntity.ok(cageResource);
     }
 
+    //DELETE method to delete a cage
     @DeleteMapping("/{cageId}")
     public ResponseEntity<Void> deleteCage(@PathVariable Long cageId) {
         var deleteCageCommand = new DeleteCageCommand(cageId);

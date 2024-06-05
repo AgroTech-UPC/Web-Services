@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is used to implement the CageQueryService interface
+ */
 @Service
 public class CageQueryServiceImpl implements CageQueryService {
     private final CageRepository cageRepository;
@@ -29,6 +32,11 @@ public class CageQueryServiceImpl implements CageQueryService {
         return  this.cageRepository.findById(query.cageId());
     }
 
+    /**
+     * This method is used to get all cages by breeder id
+     * @param query
+     * @return
+     */
     @Override
     public List<Cage> handle(GetAllCagesByBreederIdQuery query) {
         return this.cageRepository.findAllByBreederId(query.breederId());

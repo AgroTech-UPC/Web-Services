@@ -13,16 +13,20 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Cage aggregate root
+ */
 @Getter
 @Entity
 public class Cage extends AuditableAbstractAggregateRoot<Cage> {
-    //setters
     @Setter
     @Embedded
     private Name name;
+
     @Setter
     @Embedded
     private Size size;
+
     @Setter
     @Embedded
     private Observations observations;
@@ -31,6 +35,13 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
     @JoinColumn(name = "breeder_id")
     private Breeder breeder;
 
+    /**
+     * Constructor
+     * @param name
+     * @param size
+     * @param observations
+     * @param breeder
+     */
     public Cage(String name, Integer size, String observations, Breeder breeder){
         this.name = new Name(name);
         this.size = new Size(size);
@@ -38,6 +49,13 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.breeder = breeder;
     }
 
+    /**
+     * Constructor
+     * @param name
+     * @param size
+     * @param observations
+     * @param breeder
+     */
     public Cage(Name name, Size size, Observations observations, Breeder breeder) {
         this.name = name;
         this.size = size;
@@ -45,6 +63,11 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.breeder = breeder;
     }
 
+    /**
+     * Constructor
+     * @param command
+     * @param breeder
+     */
     public Cage(CreateCageCommand command, Breeder breeder) {
         this.name = new Name(command.name());
         this.size = new Size(command.size());
@@ -54,13 +77,14 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
 
     public Cage() {}
 
-    //getters
     public String name() {
         return this.name.name();
     }
+
     public Integer size() {
         return this.size.size();
     }
+
     public String observations() {
         return this.observations.observations();
     }
