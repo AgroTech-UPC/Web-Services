@@ -4,7 +4,6 @@ import com.acme.web.services.user.domain.model.commands.CreateAvailableDateComma
 import com.acme.web.services.user.domain.model.commands.DeleteAvailableDateCommand;
 import com.acme.web.services.user.domain.model.entities.AvailableDate;
 import com.acme.web.services.user.domain.model.valueobjects.DateAv;
-import com.acme.web.services.user.domain.model.valueobjects.TimeAv;
 import com.acme.web.services.user.domain.services.AvailableDateCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AvailableDateRepository;
@@ -26,12 +25,10 @@ public class AvailableDateCommandServiceImpl implements AvailableDateCommandServ
         if (advisor.isEmpty()) {
             throw new IllegalArgumentException("Advisor does not exist");
         }
-        // Convertir Date y LocalTime a DateAv y TimeAv
+        // Convertir Date a DateAv
         DateAv dateAv = new DateAv(command.date());
-        TimeAv startTimeAv = new TimeAv(command.startTime());
-        TimeAv endTimeAv = new TimeAv(command.endTime());
 
-        var availableDate = new AvailableDate(advisor.get(), dateAv, startTimeAv, endTimeAv);
+        var availableDate = new AvailableDate(advisor.get(), dateAv, command.startTime(), command.endTime());
         try {
             availableDateRepository.save(availableDate);
         } catch (Exception e) {

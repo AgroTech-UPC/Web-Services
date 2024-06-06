@@ -2,11 +2,15 @@ package com.acme.web.services.user.interfaces.rest;
 
 import com.acme.web.services.user.domain.model.queries.GetAdvisorByIdQuery;
 import com.acme.web.services.user.domain.model.queries.GetAllAdvisorsQuery;
+import com.acme.web.services.user.domain.model.queries.GetAvailableDatesByAdvisorIdQuery;
 import com.acme.web.services.user.domain.services.AdvisorCommandService;
 import com.acme.web.services.user.domain.services.AdvisorQueryService;
+import com.acme.web.services.user.domain.services.AvailableDateQueryService;
 import com.acme.web.services.user.interfaces.rest.resources.AdvisorResource;
+import com.acme.web.services.user.interfaces.rest.resources.AvailableDateResource;
 import com.acme.web.services.user.interfaces.rest.resources.CreateAdvisorResource;
 import com.acme.web.services.user.interfaces.rest.transform.AdvisorResourceFromEntityAssembler;
+import com.acme.web.services.user.interfaces.rest.transform.AvailableDateResourceFromEntityAssembler;
 import com.acme.web.services.user.interfaces.rest.transform.CreateAdvisorCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -23,10 +27,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AdvisorsController {
     private final AdvisorCommandService advisorCommandService;
     private final AdvisorQueryService advisorQueryService;
+    private final AvailableDateQueryService availableDateQueryService;
 
-    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService) {
+    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService, AvailableDateQueryService availableDateQueryService) {
         this.advisorCommandService = advisorCommandService;
         this.advisorQueryService = advisorQueryService;
+        this.availableDateQueryService = availableDateQueryService;
     }
 
     @PostMapping
@@ -62,6 +68,19 @@ public class AdvisorsController {
         }
         var advisorResource = AdvisorResourceFromEntityAssembler.toResourceFromEntity(advisor.get());
         return ResponseEntity.ok(advisorResource);
+    }
+
+    @GetMapping("/{advisorId}/available-dates")
+    public ResponseEntity<List<AvailableDateResource>> getAdvisorAvailableDates(@PathVariable Long advisorId) {
+        var getAdvisorByIdQuery = new GetAdvisorByIdQuery(advisorId);
+        var advisor = advisorQueryService.handle(getAdvisorByIdQuery);
+        if (advisor.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        var getAvailableDatesByAdvisorIdQuery = new GetAvailableDatesByAdvisorIdQuery(advisorId);
+        var availableDates = availableDateQueryService.handle(getAvailableDatesByAdvisorIdQuery);
+        var availableDateResources = availableDates.stream().map(AvailableDateResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(availableDateResources);
     }
 
 
