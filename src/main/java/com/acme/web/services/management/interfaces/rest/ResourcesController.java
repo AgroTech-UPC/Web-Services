@@ -87,12 +87,12 @@ public class ResourcesController {
 
     //DELETE method to delete a resource
     @DeleteMapping("/{resourceId}")
-    public ResponseEntity<Void> deleteResource(@PathVariable Long resourceId) {
+    public ResponseEntity<?> deleteResource(@PathVariable Long resourceId) {
         var deleteResourceCommand = new DeleteResourceCommand(resourceId);
         var resourceDeleted = resourceCommandService.handle(deleteResourceCommand);
         if (resourceDeleted.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Resource with given id successfully deleted");
     }
 }
