@@ -9,7 +9,8 @@ public class CreateAvailableDateCommandFromEntityAssembler {
                 resource.advisorId(),
                 resource.date(),
                 resource.startTime(),
-                resource.endTime()
+                resource.endTime(),
+                true
         );
     }
 }

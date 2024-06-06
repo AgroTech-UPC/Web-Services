@@ -3,7 +3,6 @@ package com.acme.web.services.user.application.internal.commandservices;
 import com.acme.web.services.user.domain.model.commands.CreateAvailableDateCommand;
 import com.acme.web.services.user.domain.model.commands.DeleteAvailableDateCommand;
 import com.acme.web.services.user.domain.model.entities.AvailableDate;
-import com.acme.web.services.user.domain.model.valueobjects.DateAv;
 import com.acme.web.services.user.domain.services.AvailableDateCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AvailableDateRepository;
@@ -25,10 +24,7 @@ public class AvailableDateCommandServiceImpl implements AvailableDateCommandServ
         if (advisor.isEmpty()) {
             throw new IllegalArgumentException("Advisor does not exist");
         }
-        // Convertir Date a DateAv
-        DateAv dateAv = new DateAv(command.date());
-
-        var availableDate = new AvailableDate(advisor.get(), dateAv, command.startTime(), command.endTime());
+        var availableDate = new AvailableDate(advisor.get(), command.date(), command.startTime(), command.endTime(), true);
         try {
             availableDateRepository.save(availableDate);
         } catch (Exception e) {

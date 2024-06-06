@@ -1,20 +1,19 @@
 package com.acme.web.services.user.domain.model.entities;
 
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.acme.web.services.user.domain.model.valueobjects.DateAv;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Entity
 public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate> {
 
-    @Embedded
     @Column(name="date")
-    private final DateAv date;
+    private final LocalDate date;
 
     @Column(name="start_time")
     private final LocalTime startTime;
@@ -23,7 +22,7 @@ public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate>
     private final LocalTime endTime;
 
     @Setter
-    @Column(name="status")
+    @Column(name="status", updatable = false)
     private boolean status;
 
     @ManyToOne
@@ -31,20 +30,20 @@ public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate>
     private Advisor advisor;
 
     public AvailableDate(){
-        this.date = new DateAv();
+        this.date = null;
         this.startTime = null;
         this.endTime = null;
         this.status = true;
     }
-    public AvailableDate(Advisor advisor, DateAv date, LocalTime startTime, LocalTime endTime){
+    public AvailableDate(Advisor advisor, LocalDate date, LocalTime startTime, LocalTime endTime, boolean status){
         this.advisor = advisor;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = true;
+        this.status = status;
     }
 
-    public DateAv getAvailableDate(){
+    public LocalDate getAvailableDate(){
         return this.date;
     }
     public Boolean getStatus(){
