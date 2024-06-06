@@ -70,6 +70,9 @@ public class ResourceCommandServiceImpl implements ResourceCommandService {
      */
     @Override
     public Optional<Resource> handle(DeleteResourceCommand command) {
+        if (!resourceRepository.existsById(command.resourceId())) {
+            throw new IllegalArgumentException("Resource does not exist");
+        }
         var resource = resourceRepository.findById(command.resourceId());
         resource.ifPresent(resourceRepository::delete);
         return resource;
