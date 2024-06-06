@@ -1,4 +1,7 @@
 package com.acme.web.services.user.interfaces.rest.resources;
 
-public record CreateAvailableDateResource() {
+import java.time.LocalTime;
+import java.util.Date;
+
+public record CreateAvailableDateResource(Long advisorId, Date date, LocalTime startTime, LocalTime endTime) {
 }
