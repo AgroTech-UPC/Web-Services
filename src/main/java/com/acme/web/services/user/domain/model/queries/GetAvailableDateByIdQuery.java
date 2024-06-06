@@ -1,4 +1,4 @@
 package com.acme.web.services.user.domain.model.queries;
 
-public record GetAvailableDateByIdQuery() {
+public record GetAvailableDateByIdQuery(Long availableDateId) {
 }
