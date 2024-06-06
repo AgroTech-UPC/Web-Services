@@ -39,7 +39,8 @@ public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate>
         this.endTime = new TimeAv();
         this.status = true;
     }
-    public AvailableDate(DateAv date, TimeAv startTime, TimeAv endTime){
+    public AvailableDate(Advisor advisor, DateAv date, TimeAv startTime, TimeAv endTime){
+        this.advisor = advisor;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
