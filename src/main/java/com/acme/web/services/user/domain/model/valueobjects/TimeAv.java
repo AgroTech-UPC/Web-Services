@@ -7,4 +7,8 @@ import java.time.LocalTime;
 @Embeddable
 public record TimeAv(LocalTime time) {
     public TimeAv(){this(null);}
+
+    public TimeAv(LocalTime time){
+        this.time = time;
+    }
 }

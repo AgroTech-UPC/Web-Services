@@ -24,7 +24,7 @@ public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate>
     @Column(name="end_time")
     private final TimeAv endTime;
 
-    @Getter
+
     @Setter
     @Column(name="status")
     private boolean status;
@@ -48,5 +48,8 @@ public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate>
 
     public DateAv getAvailableDate(){
         return this.date;
+    }
+    public Boolean getStatus(){
+        return this.status;
     }
 }
