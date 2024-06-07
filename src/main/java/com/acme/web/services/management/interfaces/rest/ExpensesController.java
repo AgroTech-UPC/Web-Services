@@ -23,6 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 /**
  * Expenses Controller
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/expenses", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Expenses", description = "Expenses Management Endpoints")

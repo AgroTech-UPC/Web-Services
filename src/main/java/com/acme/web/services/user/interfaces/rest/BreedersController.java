@@ -33,6 +33,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/breeders", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Breeders", description = "Breeder Management Endpoints")

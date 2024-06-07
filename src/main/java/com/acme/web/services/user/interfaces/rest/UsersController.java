@@ -13,7 +13,6 @@ import com.acme.web.services.user.interfaces.rest.transform.CreateUserCommandFro
 import com.acme.web.services.user.interfaces.rest.transform.UserResourceFromEntityAssembler;
 import com.acme.web.services.user.interfaces.rest.transform.NotificationResourceFromEntityAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/users", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Users", description = "User Management Endpoints")

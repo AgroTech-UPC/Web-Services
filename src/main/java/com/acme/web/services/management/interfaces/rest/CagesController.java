@@ -27,6 +27,7 @@ import java.util.List;
 /**
  * CageController
  */
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/cages", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Cages", description = "Cage Management Endpoints")

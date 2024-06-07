@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/appointments", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Appointments", description = "Appointment Management Endpoints")

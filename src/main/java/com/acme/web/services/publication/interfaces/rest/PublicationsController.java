@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/publications", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Publications", description = "Publications Management Endpoints")

@@ -23,6 +23,7 @@ import java.util.List;
  * Resources Controller
  */
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/resources", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Resources", description = "Resource Management Endpoints")
