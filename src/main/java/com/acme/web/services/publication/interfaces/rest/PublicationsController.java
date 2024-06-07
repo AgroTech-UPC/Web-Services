@@ -29,6 +29,11 @@ public class PublicationsController {
         this.publicationQueryService = publicationQueryService;
     }
 
+    /**
+     * Create a new publication
+     * @param resource Publication resource
+     * @return Publication resource
+     */
     @PostMapping
     public ResponseEntity<PublicationResource> createPublication(@RequestBody CreatePublicationResource resource) {
         var createPublicationCommand = CreatePublicationCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -41,6 +46,10 @@ public class PublicationsController {
         return new ResponseEntity<>(publicationResource, HttpStatus.OK);
     }
 
+    /**
+     * Get all publications
+     * @return List of publication resources
+     */
     @GetMapping
     public ResponseEntity<List<PublicationResource>> getAllPublications() {
         var getAllPublicationsQuery = new GetAllPublicationsQuery();
@@ -51,6 +60,12 @@ public class PublicationsController {
         return ResponseEntity.ok(publicationResources);
     }
 
+
+    /**
+     * Get publication by id
+     * @param publicationId
+     * @return Publication resource
+     */
     @GetMapping("/{publicationId}")
     public ResponseEntity<PublicationResource> getPublicationById(@PathVariable Long publicationId) {
         var getPublicationByIdQuery = new GetPublicationByIdQuery(publicationId);
@@ -60,6 +75,11 @@ public class PublicationsController {
         return ResponseEntity.ok(publicationResource);
     }
 
+    /**
+     * Delete publication by id
+     * @param publicationId Publication id
+     * @return Success message
+     */
     @DeleteMapping("/{publicationId}")
     public ResponseEntity<?> deletePublication(@PathVariable Long publicationId) {
         var deletePublicationCommand = new DeletePublicationCommand(publicationId);
