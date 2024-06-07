@@ -13,6 +13,7 @@ import java.util.Optional;
  * JPA Repository for Resource entity.
  */
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
+    List<Resource> findAllByBreederId(Long breederId);
     Optional<Resource> findByBreederId(Long breederId);
     boolean existsByBreederId(Long breederId);
     List<Resource> findAllByResourceTypeAndBreederId(ResourceType type, Long breederId);
