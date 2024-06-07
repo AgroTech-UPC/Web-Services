@@ -1,5 +1,9 @@
 package com.acme.web.services.user.interfaces.rest;
 
+import com.acme.web.services.management.domain.model.queries.GetAllCagesByBreederIdQuery;
+import com.acme.web.services.management.domain.services.CageQueryService;
+import com.acme.web.services.management.interfaces.rest.resources.CageResource;
+import com.acme.web.services.management.interfaces.rest.transform.CageResourceFromEntityAssembler;
 import com.acme.web.services.user.domain.model.queries.GetAllBreedersQuery;
 import com.acme.web.services.user.domain.model.queries.GetBreederByIdQuery;
 import com.acme.web.services.user.domain.services.BreederCommandService;
@@ -23,10 +27,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class BreedersController {
     private final BreederCommandService breederCommandService;
     private final BreederQueryService breederQueryService;
+    private final CageQueryService cageQueryService;
 
-    public BreedersController(BreederCommandService breederCommandService, BreederQueryService breederQueryService) {
+    public BreedersController(BreederCommandService breederCommandService, BreederQueryService breederQueryService, CageQueryService cageQueryService){
         this.breederCommandService = breederCommandService;
         this.breederQueryService = breederQueryService;
+        this.cageQueryService = cageQueryService;
     }
 
     @PostMapping
@@ -62,5 +68,14 @@ public class BreedersController {
         }
         var breederResource = BreederResourceFromEntityAssembler.toResourceFromEntity(breeder.get());
         return ResponseEntity.ok(breederResource);
+    }
+
+    //GET method to get all cages by breeder id
+    @GetMapping("/{breederId}/cages")
+    public ResponseEntity<List<CageResource>> getCagesByBreederId(@PathVariable Long breederId) {
+        var getAllCagesByBreederIdQuery = new GetAllCagesByBreederIdQuery(breederId);
+        var cages = cageQueryService.handle(getAllCagesByBreederIdQuery);
+        var cageResources = cages.stream().map(CageResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(cageResources);
     }
 }

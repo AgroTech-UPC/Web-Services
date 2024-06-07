@@ -26,11 +26,11 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/cages", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Cages", description = "Cage Management Endpoints")
-public class CageController {
+public class CagesController {
     private final CageCommandService cageCommandService;
     private final CageQueryService cageQueryService;
 
-    public CageController(CageCommandService cageCommandService, CageQueryService cageQueryService) {
+    public CagesController(CageCommandService cageCommandService, CageQueryService cageQueryService) {
         this.cageCommandService = cageCommandService;
         this.cageQueryService = cageQueryService;
     }
@@ -71,15 +71,6 @@ public class CageController {
         }
         var cageResource = CageResourceFromEntityAssembler.toResourceFromEntity(cage.get());
         return ResponseEntity.ok(cageResource);
-    }
-
-    //GET method to get all cages by breeder id
-    @GetMapping("/breeder/{breederId}")
-    public ResponseEntity<List<CageResource>> getCagesByBreederId(@PathVariable Long breederId) {
-        var getAllCagesByBreederIdQuery = new GetAllCagesByBreederIdQuery(breederId);
-        var cages = cageQueryService.handle(getAllCagesByBreederIdQuery);
-        var cageResources = cages.stream().map(CageResourceFromEntityAssembler::toResourceFromEntity).toList();
-        return ResponseEntity.ok(cageResources);
     }
 
     //PUT method to update a cage
