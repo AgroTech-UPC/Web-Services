@@ -1,5 +1,9 @@
 package com.acme.web.services.user.interfaces.rest;
 
+import com.acme.web.services.appointment.domain.model.queries.GetAllAppointmentsByBreederIdQuery;
+import com.acme.web.services.appointment.domain.services.AppointmentQueryService;
+import com.acme.web.services.appointment.interfaces.rest.resources.AppointmentResource;
+import com.acme.web.services.appointment.interfaces.rest.transform.AppointmentResourceFromEntityAssembler;
 import com.acme.web.services.management.domain.model.queries.GetAllCagesByBreederIdQuery;
 import com.acme.web.services.management.domain.services.CageQueryService;
 import com.acme.web.services.management.interfaces.rest.resources.CageResource;
@@ -28,11 +32,13 @@ public class BreedersController {
     private final BreederCommandService breederCommandService;
     private final BreederQueryService breederQueryService;
     private final CageQueryService cageQueryService;
+    private final AppointmentQueryService appointmentQueryService;
 
-    public BreedersController(BreederCommandService breederCommandService, BreederQueryService breederQueryService, CageQueryService cageQueryService){
+    public BreedersController(BreederCommandService breederCommandService, BreederQueryService breederQueryService, CageQueryService cageQueryService, AppointmentQueryService appointmentQueryService){
         this.breederCommandService = breederCommandService;
         this.breederQueryService = breederQueryService;
         this.cageQueryService = cageQueryService;
+        this.appointmentQueryService = appointmentQueryService;
     }
 
     @PostMapping
@@ -78,4 +84,14 @@ public class BreedersController {
         var cageResources = cages.stream().map(CageResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(cageResources);
     }
+
+    //GET method to get all appointments by breeder id
+    @GetMapping("/{breederId}/appointments")
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByBreederId(@PathVariable Long breederId) {
+        var getAllAppointmentsByBreederIdQuery = new GetAllAppointmentsByBreederIdQuery(breederId);
+        var appointments = appointmentQueryService.handle(getAllAppointmentsByBreederIdQuery);
+        var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(appointmentResources);
+    }
+
 }

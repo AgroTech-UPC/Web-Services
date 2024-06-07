@@ -1,11 +1,15 @@
 package com.acme.web.services.user.interfaces.rest;
 
+import com.acme.web.services.appointment.domain.model.queries.GetAllAppointmentsByAdvisorIdQuery;
+import com.acme.web.services.appointment.interfaces.rest.resources.AppointmentResource;
+import com.acme.web.services.appointment.interfaces.rest.transform.AppointmentResourceFromEntityAssembler;
 import com.acme.web.services.user.domain.model.queries.GetAdvisorByIdQuery;
 import com.acme.web.services.user.domain.model.queries.GetAllAdvisorsQuery;
 import com.acme.web.services.user.domain.model.queries.GetAvailableDatesByAdvisorIdQuery;
 import com.acme.web.services.user.domain.services.AdvisorCommandService;
 import com.acme.web.services.user.domain.services.AdvisorQueryService;
 import com.acme.web.services.user.domain.services.AvailableDateQueryService;
+import com.acme.web.services.appointment.domain.services.AppointmentQueryService;
 import com.acme.web.services.user.interfaces.rest.resources.AdvisorResource;
 import com.acme.web.services.user.interfaces.rest.resources.AvailableDateResource;
 import com.acme.web.services.user.interfaces.rest.resources.CreateAdvisorResource;
@@ -28,11 +32,13 @@ public class AdvisorsController {
     private final AdvisorCommandService advisorCommandService;
     private final AdvisorQueryService advisorQueryService;
     private final AvailableDateQueryService availableDateQueryService;
+    private final AppointmentQueryService appointmentQueryService;
 
-    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService, AvailableDateQueryService availableDateQueryService) {
+    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService, AvailableDateQueryService availableDateQueryService, AppointmentQueryService appointmentQueryService) {
         this.advisorCommandService = advisorCommandService;
         this.advisorQueryService = advisorQueryService;
         this.availableDateQueryService = availableDateQueryService;
+        this.appointmentQueryService = appointmentQueryService;
     }
 
     @PostMapping
@@ -83,5 +89,13 @@ public class AdvisorsController {
         return ResponseEntity.ok(availableDateResources);
     }
 
+    //GET method to get all appointments by advisor id
+    @GetMapping("/{advisorId}/appointments")
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByAdvisorId(@PathVariable Long advisorId) {
+        var getAllAppointmentsByAdvisorIdQuery = new GetAllAppointmentsByAdvisorIdQuery(advisorId);
+        var appointments = appointmentQueryService.handle(getAllAppointmentsByAdvisorIdQuery);
+        var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(appointmentResources);
+    }
 
 }
