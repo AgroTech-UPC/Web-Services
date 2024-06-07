@@ -3,6 +3,10 @@ package com.acme.web.services.user.interfaces.rest;
 import com.acme.web.services.appointment.domain.model.queries.GetAllAppointmentsByAdvisorIdQuery;
 import com.acme.web.services.appointment.interfaces.rest.resources.AppointmentResource;
 import com.acme.web.services.appointment.interfaces.rest.transform.AppointmentResourceFromEntityAssembler;
+import com.acme.web.services.publication.domain.model.queries.GetAllPublicationsByAdvisorIdQuery;
+import com.acme.web.services.publication.domain.services.PublicationQueryService;
+import com.acme.web.services.publication.interfaces.rest.resources.PublicationResource;
+import com.acme.web.services.publication.interfaces.rest.transform.PublicationResourceFromEntityAssembler;
 import com.acme.web.services.user.domain.model.queries.GetAdvisorByIdQuery;
 import com.acme.web.services.user.domain.model.queries.GetAllAdvisorsQuery;
 import com.acme.web.services.user.domain.model.queries.GetAvailableDatesByAdvisorIdQuery;
@@ -33,12 +37,16 @@ public class AdvisorsController {
     private final AdvisorQueryService advisorQueryService;
     private final AvailableDateQueryService availableDateQueryService;
     private final AppointmentQueryService appointmentQueryService;
+    private final PublicationQueryService publicationQueryService;
 
-    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService, AvailableDateQueryService availableDateQueryService, AppointmentQueryService appointmentQueryService) {
+    public AdvisorsController(AdvisorCommandService advisorCommandService, AdvisorQueryService advisorQueryService,
+                              AvailableDateQueryService availableDateQueryService, AppointmentQueryService appointmentQueryService,
+                              PublicationQueryService publicationQueryService) {
         this.advisorCommandService = advisorCommandService;
         this.advisorQueryService = advisorQueryService;
         this.availableDateQueryService = availableDateQueryService;
         this.appointmentQueryService = appointmentQueryService;
+        this.publicationQueryService = publicationQueryService;
     }
 
     @PostMapping
@@ -97,5 +105,15 @@ public class AdvisorsController {
         var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(appointmentResources);
     }
+
+    //GET method to get all publications by advisor id
+    @GetMapping("/{advisorId}/publications")
+    public ResponseEntity<List<PublicationResource>> getPublicationsByAdvisorId(@PathVariable Long advisorId) {
+        var getAllPublicationsByAdvisorIdQuery = new GetAllPublicationsByAdvisorIdQuery(advisorId);
+        var publications = publicationQueryService.handle(getAllPublicationsByAdvisorIdQuery);
+        var publicationResources = publications.stream().map(PublicationResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(publicationResources);
+    }
+
 
 }
