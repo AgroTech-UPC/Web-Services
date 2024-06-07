@@ -91,10 +91,10 @@ public class AnimalController {
 
     // DELETE method to delete an animal
     @DeleteMapping("/{animalId}")
-    public ResponseEntity<Void> deleteAnimal(@PathVariable Long animalId) {
+    public ResponseEntity<?> deleteAnimal(@PathVariable Long animalId) {
         var deleteAnimalCommand = new DeleteAnimalCommand(animalId);
-        animalCommandService.handle(deleteAnimalCommand);
-        return ResponseEntity.noContent().build();
+        var animalDeleted = animalCommandService.handle(deleteAnimalCommand);
+        if (animalDeleted.isEmpty()) return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok("Animal deleted successfully!");
     }
-
 }

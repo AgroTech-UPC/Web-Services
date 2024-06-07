@@ -81,6 +81,12 @@ public class ExpensesController {
         return ResponseEntity.ok(expenseResource);
     }
 
+    /**
+     * PUT method to update an expense by its ID
+     * @param expenseId Long
+     * @param resource UpdateExpenseResource
+     * @return ResponseEntity<ExpenseResource>
+     */
     @PutMapping("/{expenseId}")
     public ResponseEntity<ExpenseResource> updateExpense(@PathVariable Long expenseId, @RequestBody UpdateExpenseResource resource) {
         var updateExpenseCommand = UpdateExpenseCommandFromResourceAssembler.toCommandFromResource(expenseId, resource);

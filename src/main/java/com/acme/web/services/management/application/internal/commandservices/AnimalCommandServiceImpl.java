@@ -72,6 +72,9 @@ public class AnimalCommandServiceImpl implements AnimalCommandService {
      */
     @Override
     public Optional<Animal> handle(DeleteAnimalCommand command) {
+        if (!animalRepository.existsById(command.animalId())) {
+            throw new IllegalArgumentException("Animal does not exist");
+        }
         var animal = animalRepository.findById(command.animalId());
         animal.ifPresent(animalRepository::delete);
         return animal;

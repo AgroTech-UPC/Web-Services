@@ -104,9 +104,10 @@ public class CagesController {
 
     //DELETE method to delete a cage
     @DeleteMapping("/{cageId}")
-    public ResponseEntity<Void> deleteCage(@PathVariable Long cageId) {
+    public ResponseEntity<?> deleteCage(@PathVariable Long cageId) {
         var deleteCageCommand = new DeleteCageCommand(cageId);
-        cageCommandService.handle(deleteCageCommand);
-        return ResponseEntity.noContent().build();
+        var cageDeleted = cageCommandService.handle(deleteCageCommand);
+        if (cageDeleted.isEmpty()) return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok("Cage deleted successfully!");
     }
 }

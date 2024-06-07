@@ -71,6 +71,9 @@ public class CageCommandServiceImpl implements CageCommandService {
      */
     @Override
     public Optional<Cage> handle(DeleteCageCommand command) {
+        if(!cageRepository.existsById(command.cageId())){
+            throw new IllegalArgumentException("Cage does not exist");
+        }
         var cage = cageRepository.findById(command.cageId());
         cage.ifPresent(cageRepository::delete);
         return cage;

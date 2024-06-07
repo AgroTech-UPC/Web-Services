@@ -4,8 +4,8 @@ Desarrollado con Spring Boot y Java 22.
 ### Características Principales
 - Desarrollo de APIs RESTful con operaciones CRUD.
 - Documentación automática de APIs con Swagger:
-  - localhost: [Swager de pruebas](http://localhost:8080/swagger-ui/index.html)
-  - deployed: Pendiente
+  - localhost: [Swagger de pruebas](http://localhost:8080/swagger-ui/index.html)
+  - deployed: [Swagger desplegado en render](https://web-services-18bk.onrender.com/swagger-ui/index.html#)
 - Implementación de Domain Driven Design (DDD) para una arquitectura robusta y escalable.
 
 ### Tecnologías y Paquetes Utilizados
