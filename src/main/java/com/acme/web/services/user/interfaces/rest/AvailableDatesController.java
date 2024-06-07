@@ -59,7 +59,7 @@ public class AvailableDatesController {
         var getAvailableDateByIdQuery = new GetAvailableDateByIdQuery(availableDateId);
         var availableDate = availableDateQueryService.handle(getAvailableDateByIdQuery);
         if (availableDate.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var availableDateResource = AvailableDateResourceFromEntityAssembler.toResourceFromEntity(availableDate.get());
         return ResponseEntity.ok(availableDateResource);
