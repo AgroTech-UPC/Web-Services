@@ -73,15 +73,6 @@ public class CagesController {
         return ResponseEntity.ok(cageResource);
     }
 
-    //GET method to get all cages by breeder id
-    @GetMapping("/breeder/{breederId}")
-    public ResponseEntity<List<CageResource>> getCagesByBreederId(@PathVariable Long breederId) {
-        var getAllCagesByBreederIdQuery = new GetAllCagesByBreederIdQuery(breederId);
-        var cages = cageQueryService.handle(getAllCagesByBreederIdQuery);
-        var cageResources = cages.stream().map(CageResourceFromEntityAssembler::toResourceFromEntity).toList();
-        return ResponseEntity.ok(cageResources);
-    }
-
     //PUT method to update a cage
     @PutMapping("/{cageId}")
     public ResponseEntity<CageResource> updateCage(@PathVariable Long cageId, @RequestBody UpdateCageResource res) {
