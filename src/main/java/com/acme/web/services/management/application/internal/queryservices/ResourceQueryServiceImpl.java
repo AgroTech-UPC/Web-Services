@@ -1,6 +1,7 @@
 package com.acme.web.services.management.application.internal.queryservices;
 
 import com.acme.web.services.management.domain.model.aggregates.Resource;
+import com.acme.web.services.management.domain.model.queries.GetAllResourcesByBreederIdQuery;
 import com.acme.web.services.management.domain.model.queries.GetAllResourcesByTypeAndIdQuery;
 import com.acme.web.services.management.domain.model.queries.GetAllResourcesQuery;
 import com.acme.web.services.management.domain.model.queries.GetResourceByIdQuery;
@@ -38,5 +39,10 @@ public class ResourceQueryServiceImpl implements ResourceQueryService {
     @Override
     public List<Resource> handle(GetAllResourcesByTypeAndIdQuery query) {
         return resourceRepository.findAllByResourceTypeAndBreederId(query.type(), query.breederId());
+    }
+
+    @Override
+    public List<Resource> handle(GetAllResourcesByBreederIdQuery query) {
+        return resourceRepository.findAllByBreederId(query.breederId());
     }
 }
