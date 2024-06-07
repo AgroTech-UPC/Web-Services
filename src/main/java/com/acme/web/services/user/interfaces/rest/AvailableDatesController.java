@@ -21,11 +21,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value="/api/v1/available-dates", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Available Dates", description = "Available Date Management Endpoints")
-public class AvailableDateController {
+public class AvailableDatesController {
     private final AvailableDateCommandService availableDateCommandService;
     private final AvailableDateQueryService availableDateQueryService;
 
-    public AvailableDateController(AvailableDateCommandService availableDateCommandService, AvailableDateQueryService availableDateQueryService) {
+    public AvailableDatesController(AvailableDateCommandService availableDateCommandService, AvailableDateQueryService availableDateQueryService) {
         this.availableDateCommandService = availableDateCommandService;
         this.availableDateQueryService = availableDateQueryService;
     }

@@ -26,11 +26,11 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/cages", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Cages", description = "Cage Management Endpoints")
-public class CageController {
+public class CagesController {
     private final CageCommandService cageCommandService;
     private final CageQueryService cageQueryService;
 
-    public CageController(CageCommandService cageCommandService, CageQueryService cageQueryService) {
+    public CagesController(CageCommandService cageCommandService, CageQueryService cageQueryService) {
         this.cageCommandService = cageCommandService;
         this.cageQueryService = cageQueryService;
     }
