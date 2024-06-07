@@ -78,7 +78,7 @@ public class AdvisorsController {
         var getAdvisorByIdQuery = new GetAdvisorByIdQuery(advisorId);
         var advisor = advisorQueryService.handle(getAdvisorByIdQuery);
         if (advisor.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var advisorResource = AdvisorResourceFromEntityAssembler.toResourceFromEntity(advisor.get());
         return ResponseEntity.ok(advisorResource);
@@ -89,7 +89,7 @@ public class AdvisorsController {
         var getAdvisorByIdQuery = new GetAdvisorByIdQuery(advisorId);
         var advisor = advisorQueryService.handle(getAdvisorByIdQuery);
         if (advisor.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var getAvailableDatesByAdvisorIdQuery = new GetAvailableDatesByAdvisorIdQuery(advisorId);
         var availableDates = availableDateQueryService.handle(getAvailableDatesByAdvisorIdQuery);
@@ -100,6 +100,11 @@ public class AdvisorsController {
     //GET method to get all appointments by advisor id
     @GetMapping("/{advisorId}/appointments")
     public ResponseEntity<List<AppointmentResource>> getAppointmentsByAdvisorId(@PathVariable Long advisorId) {
+        var getAdvisorByIdQuery = new GetAdvisorByIdQuery(advisorId);
+        var advisor = advisorQueryService.handle(getAdvisorByIdQuery);
+        if (advisor.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllAppointmentsByAdvisorIdQuery = new GetAllAppointmentsByAdvisorIdQuery(advisorId);
         var appointments = appointmentQueryService.handle(getAllAppointmentsByAdvisorIdQuery);
         var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -109,8 +114,11 @@ public class AdvisorsController {
     //GET method to get all publications by advisor id
     @GetMapping("/{advisorId}/publications")
     public ResponseEntity<List<PublicationResource>> getPublicationsByAdvisorId(@PathVariable Long advisorId) {
-
-
+        var getAdvisorByIdQuery = new GetAdvisorByIdQuery(advisorId);
+        var advisor = advisorQueryService.handle(getAdvisorByIdQuery);
+        if (advisor.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllPublicationsByAdvisorIdQuery = new GetAllPublicationsByAdvisorIdQuery(advisorId);
         var publications = publicationQueryService.handle(getAllPublicationsByAdvisorIdQuery);
         var publicationResources = publications.stream().map(PublicationResourceFromEntityAssembler::toResourceFromEntity).toList();

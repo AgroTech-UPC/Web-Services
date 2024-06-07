@@ -84,7 +84,7 @@ public class BreedersController {
         var getBreederByIdQuery = new GetBreederByIdQuery(breederId);
         var breeder = breederQueryService.handle(getBreederByIdQuery);
         if (breeder.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var breederResource = BreederResourceFromEntityAssembler.toResourceFromEntity(breeder.get());
         return ResponseEntity.ok(breederResource);
@@ -93,6 +93,11 @@ public class BreedersController {
     //GET method to get all cages by breeder id
     @GetMapping("/{breederId}/cages")
     public ResponseEntity<List<CageResource>> getCagesByBreederId(@PathVariable Long breederId) {
+        var getBreederByIdQuery = new GetBreederByIdQuery(breederId);
+        var breeder = breederQueryService.handle(getBreederByIdQuery);
+        if (breeder.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllCagesByBreederIdQuery = new GetAllCagesByBreederIdQuery(breederId);
         var cages = cageQueryService.handle(getAllCagesByBreederIdQuery);
         var cageResources = cages.stream().map(CageResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -101,6 +106,11 @@ public class BreedersController {
     //GET method to get all resources by breeder id
     @GetMapping("/{breederId}/resources")
     public ResponseEntity<List<ResourceResource>> getResourcesByBreederId(@PathVariable Long breederId) {
+        var getBreederByIdQuery = new GetBreederByIdQuery(breederId);
+        var breeder = breederQueryService.handle(getBreederByIdQuery);
+        if (breeder.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllResourcesByBreederIdQuery = new GetAllResourcesByBreederIdQuery(breederId);
         var resources = resourceQueryService.handle(getAllResourcesByBreederIdQuery);
         var resourceResources = resources.stream().map(ResourceResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -110,6 +120,11 @@ public class BreedersController {
     //GET method to get all expenses by breeder id
     @GetMapping("/{breederId}/expenses")
     public ResponseEntity<List<ExpenseResource>> getExpensesByBreederId(@PathVariable Long breederId) {
+        var getBreederByIdQuery = new GetBreederByIdQuery(breederId);
+        var breeder = breederQueryService.handle(getBreederByIdQuery);
+        if (breeder.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllExpensesByBreederIdQuery = new GetAllExpensesByBreederIdQuery(breederId);
         var expenses = expenseQueryService.handle(getAllExpensesByBreederIdQuery);
         var expenseResources = expenses.stream().map(ExpenseResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -119,6 +134,11 @@ public class BreedersController {
     //GET method to get all appointments by breeder id
     @GetMapping("/{breederId}/appointments")
     public ResponseEntity<List<AppointmentResource>> getAppointmentsByBreederId(@PathVariable Long breederId) {
+        var getBreederByIdQuery = new GetBreederByIdQuery(breederId);
+        var breeder = breederQueryService.handle(getBreederByIdQuery);
+        if (breeder.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllAppointmentsByBreederIdQuery = new GetAllAppointmentsByBreederIdQuery(breederId);
         var appointments = appointmentQueryService.handle(getAllAppointmentsByBreederIdQuery);
         var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).toList();
