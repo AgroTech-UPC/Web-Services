@@ -109,6 +109,8 @@ public class AdvisorsController {
     //GET method to get all publications by advisor id
     @GetMapping("/{advisorId}/publications")
     public ResponseEntity<List<PublicationResource>> getPublicationsByAdvisorId(@PathVariable Long advisorId) {
+
+
         var getAllPublicationsByAdvisorIdQuery = new GetAllPublicationsByAdvisorIdQuery(advisorId);
         var publications = publicationQueryService.handle(getAllPublicationsByAdvisorIdQuery);
         var publicationResources = publications.stream().map(PublicationResourceFromEntityAssembler::toResourceFromEntity).toList();
