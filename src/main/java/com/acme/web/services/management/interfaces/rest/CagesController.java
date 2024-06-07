@@ -1,14 +1,18 @@
 package com.acme.web.services.management.interfaces.rest;
 
 import com.acme.web.services.management.domain.model.commands.DeleteCageCommand;
+import com.acme.web.services.management.domain.model.queries.GetAllAnimalsByCageIdQuery;
 import com.acme.web.services.management.domain.model.queries.GetAllCagesByBreederIdQuery;
 import com.acme.web.services.management.domain.model.queries.GetAllCagesQuery;
 import com.acme.web.services.management.domain.model.queries.GetCageByIdQuery;
+import com.acme.web.services.management.domain.services.AnimalQueryService;
 import com.acme.web.services.management.domain.services.CageCommandService;
 import com.acme.web.services.management.domain.services.CageQueryService;
+import com.acme.web.services.management.interfaces.rest.resources.AnimalResource;
 import com.acme.web.services.management.interfaces.rest.resources.CageResource;
 import com.acme.web.services.management.interfaces.rest.resources.CreateCageResource;
 import com.acme.web.services.management.interfaces.rest.resources.UpdateCageResource;
+import com.acme.web.services.management.interfaces.rest.transform.AnimalResourceFromEntityAssembler;
 import com.acme.web.services.management.interfaces.rest.transform.CageResourceFromEntityAssembler;
 import com.acme.web.services.management.interfaces.rest.transform.CreateCageCommandFromResourceAssembler;
 import com.acme.web.services.management.interfaces.rest.transform.UpdateCageCommandFromResourceAssembler;
@@ -29,10 +33,12 @@ import java.util.List;
 public class CagesController {
     private final CageCommandService cageCommandService;
     private final CageQueryService cageQueryService;
+    private final AnimalQueryService animalQueryService;
 
-    public CagesController(CageCommandService cageCommandService, CageQueryService cageQueryService) {
+    public CagesController(CageCommandService cageCommandService, CageQueryService cageQueryService, AnimalQueryService animalQueryService){
         this.cageCommandService = cageCommandService;
         this.cageQueryService = cageQueryService;
+        this.animalQueryService = animalQueryService;
     }
 
     //POST method to create a new cage
@@ -71,6 +77,15 @@ public class CagesController {
         }
         var cageResource = CageResourceFromEntityAssembler.toResourceFromEntity(cage.get());
         return ResponseEntity.ok(cageResource);
+    }
+
+    // GET method to get all animals in a cage
+    @GetMapping("/{cageId}/animals")
+    public ResponseEntity<List<AnimalResource>> getAnimalsByCageId(@PathVariable Long cageId) {
+        var getAllAnimalsByCageIdQuery = new GetAllAnimalsByCageIdQuery(cageId);
+        var animals = animalQueryService.handle(getAllAnimalsByCageIdQuery);
+        var animalResources = animals.stream().map(AnimalResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(animalResources);
     }
 
     //PUT method to update a cage
