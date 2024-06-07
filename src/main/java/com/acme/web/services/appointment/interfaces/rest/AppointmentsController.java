@@ -40,6 +40,11 @@ public class AppointmentsController {
         this.reviewQueryService = reviewQueryService;
     }
 
+    /**
+     * Creates an appointment
+     * @param resource the appointment resource
+     * @return the created appointment
+     */
     @PostMapping
     public ResponseEntity<AppointmentResource> createAppointment(@RequestBody CreateAppointmentResource resource) {
         var createAppointmentCommand = CreateAppointmentCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -56,6 +61,10 @@ public class AppointmentsController {
         return new ResponseEntity<>(appointmentResource, HttpStatus.CREATED);
     }
 
+    /**
+     * Gets all appointments
+     * @return a list of all appointments
+     */
     @GetMapping
     public ResponseEntity<List<AppointmentResource>> getAllAppointments() {
         var getAllAppointmentsQuery = new GetAllAppointmentsQuery();
@@ -64,6 +73,11 @@ public class AppointmentsController {
         return ResponseEntity.ok(appointmentResources);
     }
 
+    /**
+     * Gets an appointment by id
+     * @param appointmentId the appointment id
+     * @return the appointment
+     */
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> getAppointmentById(@PathVariable Long appointmentId) {
         var getAppointmentByIdQuery = new GetAppointmentByIdQuery(appointmentId);
@@ -75,6 +89,12 @@ public class AppointmentsController {
         return ResponseEntity.ok(appointmentResource);
     }
 
+    /**
+     * Updates an appointment by id
+     * @param appointmentId the appointment id
+     * @param resource the updated appointment resource
+     * @return the updated appointment
+     */
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> updateAppointmentById(@PathVariable Long appointmentId, @RequestBody UpdateAppointmentResource resource) {
         var updateAppointmentCommand = UpdateAppointmentCommandFromResourceAssembler.toCommandFromResource(resource, appointmentId);
@@ -91,6 +111,11 @@ public class AppointmentsController {
         return ResponseEntity.ok(updatedAppointmentResource);
     }
 
+    /**
+     * Deletes an appointment by id
+     * @param appointmentId the appointment id
+     * @return the deleted appointment
+     */
     @GetMapping("/{appointmentId}/reviews")
     public ResponseEntity<List<ReviewResource>> getAppointmentReviews(@PathVariable Long appointmentId) {
         var getAppointmentByIdQuery = new GetAppointmentByIdQuery(appointmentId);

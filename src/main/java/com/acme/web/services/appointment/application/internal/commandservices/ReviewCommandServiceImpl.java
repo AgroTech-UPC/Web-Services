@@ -18,6 +18,11 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
         this.appointmentRepository = appointmentRepository;
     }
 
+    /**
+     * Creates a review in the database
+     * @param command the command to create a review
+     * @return the created review
+     */
     @Override
     public Long handle(CreateReviewCommand command) {
         var appointment = appointmentRepository.findById(command.appointmentId());

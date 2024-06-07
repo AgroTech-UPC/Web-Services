@@ -24,6 +24,11 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
         this.advisorRepository = advisorRepository;
     }
 
+    /**
+     * Creates an appointment in the database
+     * @param command the command to create an appointment
+     * @return the created appointment
+     */
     @Override
     public Long handle(CreateAppointmentCommand command) {
         var breeder = breederRepository.findById(command.breederId());
@@ -41,6 +46,11 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
         return appointment.getId();
     }
 
+    /**
+     * Updates an appointment in the database
+     * @param command the command to update an appointment
+     * @return the updated appointment
+     */
     @Override
     public Long handle(UpdateAppointmentCommand command) {
         var appointment = appointmentRepository.findById(command.appointmentId());

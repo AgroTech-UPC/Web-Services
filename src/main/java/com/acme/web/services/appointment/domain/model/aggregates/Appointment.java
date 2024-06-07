@@ -41,12 +41,12 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
 
     public Appointment(CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
-        this.status = Status.valueOf(command.status());
+        this.status = Status.valueOf(command.status().toUpperCase());
     }
 
     public Appointment(Breeder breeder, Advisor advisor, CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
-        this.status = Status.valueOf(command.status());
+        this.status = Status.valueOf(command.status().toUpperCase());
         this.breeder = breeder;
         this.advisor = advisor;
     }

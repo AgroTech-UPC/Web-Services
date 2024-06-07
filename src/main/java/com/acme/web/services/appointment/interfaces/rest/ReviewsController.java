@@ -28,6 +28,11 @@ public class ReviewsController {
         this.reviewsQueryService = reviewsQueryService;
     }
 
+    /**
+     * Creates a review
+     * @param resource the review resource
+     * @return the created review
+     */
     @PostMapping
     public ResponseEntity<ReviewResource> createReview(@RequestBody CreateReviewResource resource){
         var createReviewCommand = CreateReviewCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -44,6 +49,10 @@ public class ReviewsController {
         return ResponseEntity.ok(reviewResource);
     }
 
+    /**
+     * Gets all reviews
+     * @return all reviews
+     */
     @GetMapping
     public ResponseEntity<List<ReviewResource>> getAllReviews() {
         var getAllReviewsQuery = new GetAllReviewsQuery();
@@ -52,6 +61,11 @@ public class ReviewsController {
         return ResponseEntity.ok(reviewResources);
     }
 
+    /**
+     * Gets a review by id
+     * @param reviewId the review id
+     * @return the review
+     */
     @GetMapping("/{reviewId}")
     public ResponseEntity<ReviewResource> getReviewById(@PathVariable Long reviewId) {
         var getReviewByIdQuery = new GetReviewByIdQuery(reviewId);
