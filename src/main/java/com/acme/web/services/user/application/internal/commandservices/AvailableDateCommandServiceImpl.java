@@ -2,11 +2,14 @@ package com.acme.web.services.user.application.internal.commandservices;
 
 import com.acme.web.services.user.domain.model.commands.CreateAvailableDateCommand;
 import com.acme.web.services.user.domain.model.commands.DeleteAvailableDateCommand;
+import com.acme.web.services.user.domain.model.commands.UpdateAvailableDateCommand;
 import com.acme.web.services.user.domain.model.entities.AvailableDate;
 import com.acme.web.services.user.domain.services.AvailableDateCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AvailableDateRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AvailableDateCommandServiceImpl implements AvailableDateCommandService {
@@ -31,6 +34,16 @@ public class AvailableDateCommandServiceImpl implements AvailableDateCommandServ
             throw new IllegalArgumentException("Error while saving available date: " + e.getMessage());
         }
         return availableDate.getId();
+    }
+    @Override
+    public Optional<AvailableDate> handle(UpdateAvailableDateCommand command) {
+        return availableDateRepository.findById(command.availableDateId()).map(availableDate -> {
+            availableDate.setDate(command.date());
+            availableDate.setStartTime(command.startTime());
+            availableDate.setEndTime(command.endTime());
+            availableDate.setStatus(command.status());
+            return availableDateRepository.save(availableDate);
+        });
     }
 
     @Override

@@ -7,8 +7,10 @@ import com.acme.web.services.user.domain.services.AvailableDateCommandService;
 import com.acme.web.services.user.domain.services.AvailableDateQueryService;
 import com.acme.web.services.user.interfaces.rest.resources.AvailableDateResource;
 import com.acme.web.services.user.interfaces.rest.resources.CreateAvailableDateResource;
+import com.acme.web.services.user.interfaces.rest.resources.UpdateAvailableDateResource;
 import com.acme.web.services.user.interfaces.rest.transform.AvailableDateResourceFromEntityAssembler;
 import com.acme.web.services.user.interfaces.rest.transform.CreateAvailableDateCommandFromEntityAssembler;
+import com.acme.web.services.user.interfaces.rest.transform.UpdateAvailableDateCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +66,17 @@ public class AvailableDatesController {
         }
         var availableDateResource = AvailableDateResourceFromEntityAssembler.toResourceFromEntity(availableDate.get());
         return ResponseEntity.ok(availableDateResource);
+    }
+
+    @PutMapping ("/{availableDateId}")
+    public ResponseEntity<AvailableDateResource> updateAvailableDate(@RequestBody UpdateAvailableDateResource resource, @PathVariable Long availableDateId) {
+        var updateAvailableDateCommand = UpdateAvailableDateCommandFromResourceAssembler.toCommandFromResource(resource, availableDateId);
+        var updatedAvailableDate = availableDateCommandService.handle(updateAvailableDateCommand);
+        if (updatedAvailableDate.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        var updatedAvailableDateResource = AvailableDateResourceFromEntityAssembler.toResourceFromEntity(updatedAvailableDate.get());
+        return ResponseEntity.ok(updatedAvailableDateResource);
     }
 
     @DeleteMapping("/{availableDateId}")

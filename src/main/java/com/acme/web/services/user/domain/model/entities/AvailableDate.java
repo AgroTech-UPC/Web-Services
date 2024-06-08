@@ -12,17 +12,20 @@ import java.time.LocalTime;
 @Entity
 public class AvailableDate extends AuditableAbstractAggregateRoot<AvailableDate> {
 
+    @Setter
     @Column(name="date")
-    private final LocalDate date;
-
-    @Column(name="start_time")
-    private final LocalTime startTime;
-
-    @Column(name="end_time")
-    private final LocalTime endTime;
+    private LocalDate date;
 
     @Setter
-    @Column(name="status", updatable = false)
+    @Column(name="start_time")
+    private LocalTime startTime;
+
+    @Setter
+    @Column(name="end_time")
+    private LocalTime endTime;
+
+    @Setter
+    @Column(name="status")
     private boolean status;
 
     @ManyToOne
