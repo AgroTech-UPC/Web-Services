@@ -1,0 +1,3 @@
+com\acme\web\services\user\domain\model\commands\UpdateAvailableDateCommand.class
+com\acme\web\services\user\interfaces\rest\resources\UpdateAvailableDateResource.class
+com\acme\web\services\user\interfaces\rest\transform\UpdateAvailableDateCommandFromResourceAssembler.class

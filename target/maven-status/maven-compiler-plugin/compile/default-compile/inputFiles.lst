@@ -164,6 +164,7 @@ C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\w
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\commands\CreateUserCommand.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\commands\DeleteAvailableDateCommand.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\commands\DeleteNotificationCommand.java
+C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\commands\UpdateAvailableDateCommand.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\entities\Advisor.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\entities\AvailableDate.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\domain\model\entities\Breeder.java
@@ -215,6 +216,7 @@ C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\w
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\resources\CreateNotificationResource.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\resources\CreateUserResource.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\resources\NotificationResource.java
+C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\resources\UpdateAvailableDateResource.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\resources\UserResource.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\AdvisorResourceFromEntityAssembler.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\AvailableDateResourceFromEntityAssembler.java
@@ -225,6 +227,7 @@ C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\w
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\CreateNotificationCommandFromResourceAssembler.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\CreateUserCommandFromResourceAssembler.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\NotificationResourceFromEntityAssembler.java
+C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\UpdateAvailableDateCommandFromResourceAssembler.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\transform\UserResourceFromEntityAssembler.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\user\interfaces\rest\UsersController.java
 C:\Users\User\Documents\GitHub\open source\Web-Services\src\main\java\com\acme\web\services\WebServicesApplication.java
