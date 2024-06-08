@@ -11,7 +11,7 @@ public class AvailableDateResourceFromEntityAssembler {
                 entity.getDate(),
                 entity.getStartTime(),
                 entity.getEndTime(),
-                true
+                entity.getStatus()
         );
     }
 }
