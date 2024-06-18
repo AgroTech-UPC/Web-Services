@@ -6,6 +6,10 @@ import com.acme.web.services.user.interfaces.rest.resources.CreateBreederResourc
 public class CreateBreederCommandFromResourceAssembler {
     public static CreateBreederCommand toCommandFromResource(CreateBreederResource resource){
         return new CreateBreederCommand(
+                resource.fullname(),
+                resource.location(),
+                resource.birthdate(),
+                resource.description(),
                 resource.userId()
         );
     }

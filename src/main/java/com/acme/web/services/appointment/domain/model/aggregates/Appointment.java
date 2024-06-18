@@ -4,7 +4,8 @@ import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAgg
 import com.acme.web.services.appointment.domain.model.commands.CreateAppointmentCommand;
 import com.acme.web.services.appointment.domain.model.valueObjects.*;
 
-import com.acme.web.services.user.domain.model.entities.*;
+import com.acme.web.services.user.domain.model.aggregates.Advisor;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

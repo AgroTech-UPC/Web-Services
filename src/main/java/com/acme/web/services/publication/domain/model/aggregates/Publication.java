@@ -3,7 +3,7 @@ package com.acme.web.services.publication.domain.model.aggregates;
 import com.acme.web.services.publication.domain.model.commands.CreatePublicationCommand;
 import com.acme.web.services.publication.domain.model.valueobjects.PublicationContent;
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.acme.web.services.user.domain.model.entities.Advisor;
+import com.acme.web.services.user.domain.model.aggregates.Advisor;
 import jakarta.persistence.*;
 import lombok.Getter;
 

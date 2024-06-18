@@ -1,6 +1,6 @@
 package com.acme.web.services.user.domain.model.commands;
 
-import com.acme.web.services.user.domain.model.aggregates.User;
+import java.time.LocalDate;
 
-public record CreateAdvisorCommand(String occupation, int experience, String photo, int rating, Long userId) {
+public record CreateAdvisorCommand(String fullname, String location, LocalDate birthdate, String description, String occupation, int experience, String photo, int rating, Long userId) {
 }

@@ -1,11 +1,11 @@
 package com.acme.web.services.user.application.internal.commandservices;
 
+import com.acme.web.services.iam.infrastructure.persistence.jpa.repositories.UserRepository;
 import com.acme.web.services.user.domain.model.commands.CreateNotificationCommand;
 import com.acme.web.services.user.domain.model.commands.DeleteNotificationCommand;
 import com.acme.web.services.user.domain.model.entities.Notification;
 import com.acme.web.services.user.domain.services.NotificationCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.NotificationRepository;
-import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +24,7 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
         if (user.isEmpty()) {
             throw new IllegalArgumentException("User does not exist");
         }
-        var notification = new Notification(command.type(), command.text(), command.date(), user.get());
+        var notification = new Notification(command, user.get());
         try {
             notificationRepository.save(notification);
         } catch (Exception e) {
