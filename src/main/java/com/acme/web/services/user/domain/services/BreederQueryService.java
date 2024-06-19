@@ -1,6 +1,6 @@
 package com.acme.web.services.user.domain.services;
 
-import com.acme.web.services.user.domain.model.entities.Breeder;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import com.acme.web.services.user.domain.model.queries.GetAllBreedersQuery;
 import com.acme.web.services.user.domain.model.queries.GetBreederByIdQuery;
 

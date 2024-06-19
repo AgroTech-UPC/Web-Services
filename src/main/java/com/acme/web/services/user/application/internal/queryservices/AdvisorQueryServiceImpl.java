@@ -1,6 +1,6 @@
 package com.acme.web.services.user.application.internal.queryservices;
 
-import com.acme.web.services.user.domain.model.entities.Advisor;
+import com.acme.web.services.user.domain.model.aggregates.Advisor;
  import com.acme.web.services.user.domain.model.queries.GetAllAdvisorsQuery;
 import com.acme.web.services.user.domain.model.queries.GetAdvisorByIdQuery;
 import com.acme.web.services.user.domain.services.AdvisorQueryService;

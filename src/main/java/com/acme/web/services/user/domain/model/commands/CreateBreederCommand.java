@@ -1,6 +1,6 @@
 package com.acme.web.services.user.domain.model.commands;
 
-import com.acme.web.services.user.domain.model.aggregates.User;
+import java.time.LocalDate;
 
-public record CreateBreederCommand(Long userId){
+public record CreateBreederCommand(String fullname, String location, LocalDate birthdate, String description, Long userId){
 }

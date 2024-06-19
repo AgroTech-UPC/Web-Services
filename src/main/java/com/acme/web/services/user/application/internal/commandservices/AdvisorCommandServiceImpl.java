@@ -1,10 +1,10 @@
 package com.acme.web.services.user.application.internal.commandservices;
 
+import com.acme.web.services.iam.infrastructure.persistence.jpa.repositories.UserRepository;
 import com.acme.web.services.user.domain.model.commands.CreateAdvisorCommand;
-import com.acme.web.services.user.domain.model.entities.Advisor;
+import com.acme.web.services.user.domain.model.aggregates.Advisor;
 import com.acme.web.services.user.domain.services.AdvisorCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
-import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class AdvisorCommandServiceImpl implements AdvisorCommandService{
         if(user.isEmpty()){
             throw new IllegalArgumentException("User does not exist");
         }
-        var advisor = new Advisor(command.occupation(), command.experience(), command.photo(), command.rating(), user.get());
+        var advisor = new Advisor(command, user.get());
         try{
             advisorRepository.save(advisor);
         } catch (Exception e){

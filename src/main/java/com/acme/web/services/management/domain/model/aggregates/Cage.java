@@ -5,7 +5,7 @@ import com.acme.web.services.management.domain.model.valueobjects.Name;
 import com.acme.web.services.management.domain.model.valueobjects.Observations;
 import com.acme.web.services.management.domain.model.valueobjects.Size;
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.acme.web.services.user.domain.model.entities.Breeder;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
