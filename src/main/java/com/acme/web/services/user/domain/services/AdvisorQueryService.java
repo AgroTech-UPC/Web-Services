@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface AdvisorQueryService {
     List<Advisor> handle(GetAllAdvisorsQuery query);
     Optional<Advisor> handle(GetAdvisorByIdQuery query);
+    Long getUserIdByAdvisorId(Long advisorId);
 }
