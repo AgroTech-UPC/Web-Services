@@ -11,7 +11,7 @@ public class BreederResourceFromEntityAssembler {
                 entity.getLocation(),
                 entity.getBirthdate(),
                 entity.getDescription(),
-                entity.getUser().getId()
+                entity.getUserId()
         );
     }
 }

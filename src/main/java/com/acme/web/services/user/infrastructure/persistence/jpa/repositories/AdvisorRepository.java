@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface AdvisorRepository extends JpaRepository<Advisor, Long> {
-    Optional<Advisor> findByUserId(Long userId);
-    boolean existsByUserId(Long userId);
+    Optional<Advisor> findByUser_Id(Long userId);
+    boolean existsByUser_Id(Long userId);
 }
