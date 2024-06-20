@@ -1,7 +1,10 @@
 package com.acme.web.services.appointment.domain.model.events;
 
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
+
+@Getter
 public class CreateNotificationByAppointmentCreated extends ApplicationEvent {
 
     private final Long breederUserId;
@@ -13,12 +16,5 @@ public class CreateNotificationByAppointmentCreated extends ApplicationEvent {
         this.advisorUserId = advisorId;
     }
 
-    public Long getBreederUserId() {
-        return breederUserId;
-    }
-
-    public Long getAdvisorUserId() {
-        return advisorUserId;
-    }
 }
 
