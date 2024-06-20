@@ -34,20 +34,6 @@ public class NotificationsController {
         this.notificationQueryService = notificationQueryService;
     }
 
-    @EventListener
-    public void onAppointmentCreated(CreateNotificationByAppointmentCreated event) {
-        Date date = new Date(); // Use current date. Adjust as necessary.
-        Long breederUserId = event.getBreederUserId(); // Get the breeder's user ID from the event.
-        Long advisorUserId = event.getAdvisorUserId(); // Get the advisor's user ID from the event.
-
-        // Create a notification for the breeder.
-        CreateNotificationResource breederNotificationResource = new CreateNotificationResource("Appointment", "Se ha creado una nueva cita para criador", date, breederUserId);
-        createNotification(breederNotificationResource);
-
-        // Create a notification for the advisor.
-        CreateNotificationResource advisorNotificationResource = new CreateNotificationResource("Appointment", "Se ha creado una nueva cita para asesor", date, advisorUserId);
-        createNotification(advisorNotificationResource);
-    }
 
     @PostMapping
     public ResponseEntity<NotificationResource> createNotification(@RequestBody CreateNotificationResource resource) {

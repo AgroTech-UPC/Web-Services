@@ -26,19 +26,19 @@ public class Breeder extends AuditableAbstractAggregateRoot<Breeder> {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
-    public Breeder(CreateBreederCommand command, User userId) {
+    public Breeder(CreateBreederCommand command, User user) {
         this.fullname = command.fullname();
         this.location = command.location();
         this.birthdate = command.birthdate();
         this.description = command.description();
-        this.userId = userId;
+        this.user = user;
     }
 
     public Breeder() {}
 
     public Long getUserId() {
-        return this.userId.getId();
+        return this.user.getId();
     }
 }
