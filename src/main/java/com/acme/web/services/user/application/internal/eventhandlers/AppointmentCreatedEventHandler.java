@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class UserReadyEventHandler {
+public class AppointmentCreatedEventHandler {
 
     private final NotificationCommandService notificationCommandService;
 
-    public UserReadyEventHandler(NotificationCommandService notificationCommandService) {
+    public AppointmentCreatedEventHandler(NotificationCommandService notificationCommandService) {
         this.notificationCommandService = notificationCommandService;
     }
 
