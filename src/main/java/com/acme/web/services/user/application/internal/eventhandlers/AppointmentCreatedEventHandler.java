@@ -34,8 +34,8 @@ public class AppointmentCreatedEventHandler {
         var meetingUrl = "https://meet.jit.si/AgroConnectMeeting" + event.getBreederId() + "-" + event.getAdvisorId();
 
 
-        notificationCommandService.handle(new CreateNotificationCommand("Appointment", "Se ha creado una nueva cita para criador", date, breeder.getUserId(), meetingUrl));
-        notificationCommandService.handle(new CreateNotificationCommand("Appointment", "Se ha creado una nueva cita para asesor", date, advisor.getUserId(), meetingUrl));
+        notificationCommandService.handle(new CreateNotificationCommand("Appointment", "Tienes un asesoramiento programado con " + advisor.getFullname(), date, breeder.getUserId(), meetingUrl));
+        notificationCommandService.handle(new CreateNotificationCommand("Appointment", "Tienes una asesoria programada con " + breeder.getFullname(), date, advisor.getUserId(), meetingUrl));
     }
 
 }

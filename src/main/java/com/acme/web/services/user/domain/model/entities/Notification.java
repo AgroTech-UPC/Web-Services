@@ -32,6 +32,7 @@ public class Notification {
         this.type = command.type();
         this.text = command.text();
         this.date = command.date();
+        this.meetingUrl = command.meetingUrl();
         this.user = user;
 
     }
