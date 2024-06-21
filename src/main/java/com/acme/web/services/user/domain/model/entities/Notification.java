@@ -22,6 +22,8 @@ public class Notification {
     @NotNull
     private Date date;
 
+    private String meetingUrl;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

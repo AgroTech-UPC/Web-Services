@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface BreederRepository extends JpaRepository<Breeder, Long>{
-    Optional<Breeder> findByUser_Id(Long id);
+
 }

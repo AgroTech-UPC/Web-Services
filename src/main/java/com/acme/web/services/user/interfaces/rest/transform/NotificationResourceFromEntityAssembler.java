@@ -10,6 +10,8 @@ public class NotificationResourceFromEntityAssembler {
                 entity.getType(),
                 entity.getText(),
                 entity.getDate(),
-                entity.getUser().getId());
+                entity.getUser().getId(),
+                entity.getMeetingUrl()
+        );
     }
 }
