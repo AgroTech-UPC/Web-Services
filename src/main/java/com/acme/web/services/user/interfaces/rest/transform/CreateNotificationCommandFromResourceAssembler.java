@@ -9,7 +9,8 @@ public class CreateNotificationCommandFromResourceAssembler {
                 resource.type(),
                 resource.text(),
                 resource.date(),
-                resource.userId()
+                resource.userId(),
+                resource.meetingUrl()
         );
     }
 }
