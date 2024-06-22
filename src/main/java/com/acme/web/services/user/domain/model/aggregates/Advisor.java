@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -40,6 +41,7 @@ public class Advisor extends AuditableAbstractAggregateRoot<Advisor> {
     @NotNull
     @Min(0)
     @Max(5)
+    @Setter
     private int rating;
 
     public Advisor(CreateAdvisorCommand command, User user) {
