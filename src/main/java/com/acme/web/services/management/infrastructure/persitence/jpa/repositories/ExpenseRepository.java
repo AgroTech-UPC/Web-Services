@@ -9,6 +9,10 @@ import java.util.Optional;
 
 /**
  * JPA Repository for Expense entity.
+ * It extends JpaRepository to get access to CRUD operations.
+ * it contains a method to find all expenses by breeder id.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {

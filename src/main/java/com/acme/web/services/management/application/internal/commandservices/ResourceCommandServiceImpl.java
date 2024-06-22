@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * This class represents the service implementation for the Resource entity.
+ * This class represents the service implementation for the Resource aggregate.
+ * It implements the methods to create, update and delete a resource.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @Service
 public class ResourceCommandServiceImpl implements ResourceCommandService {

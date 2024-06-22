@@ -11,7 +11,11 @@ import java.util.Optional;
 
 /**
  * Resource query service interface.
+ * This interface represents the service for handling resource queries.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
+
 public interface ResourceQueryService {
     List<Resource> handle(GetAllResourcesQuery query);
     Optional<Resource> handle(GetResourceByIdQuery query);

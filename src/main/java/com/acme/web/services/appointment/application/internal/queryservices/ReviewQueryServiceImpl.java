@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class represents the service implementation for the ReviewQueryService.
+ * @author Andre Gabriel Valverde Mozo -U202218899
+ * @version 1.0
+ */
 @Service
 public class ReviewQueryServiceImpl implements ReviewQueryService {
     private final ReviewRepository reviewRepository;

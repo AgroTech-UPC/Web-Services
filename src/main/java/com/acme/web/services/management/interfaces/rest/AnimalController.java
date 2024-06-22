@@ -24,6 +24,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Animal Controller
+ * This class represents the REST controller for the Animal entity.
+ * It contains the endpoints for the Animal entity.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -39,7 +43,11 @@ public class AnimalController {
         this.animalQueryService = animalQueryService;
     }
 
-    // POST method to create a new animal
+    /**
+     * This method creates an animal.
+     * @param res
+     * @return ResponseEntity<AnimalResource>
+     */
     @PostMapping
     public ResponseEntity<AnimalResource> createAnimal(@RequestBody CreateAnimalResource res) {
         var createAnimalCommand = CreateAnimalCommandFromResourceAssembler.toCommandFromResource(res);
@@ -56,7 +64,10 @@ public class AnimalController {
         return new ResponseEntity<>(animalResource, HttpStatus.CREATED);
     }
 
-    // GET method to get all animals
+    /**
+     * This method gets all animals by cage ID.
+     * @return ResponseEntity<List<AnimalResource>>
+     */
     @GetMapping
     public ResponseEntity<List<AnimalResource>> getAllAnimals() {
         var getAllAnimalsQuery = new GetAllAnimalsQuery();
@@ -65,7 +76,11 @@ public class AnimalController {
         return ResponseEntity.ok(animalResources);
     }
 
-    // GET method to get an animal by its ID
+    /**
+     * This method gets all animals by cage ID.
+     * @param animalId
+     * @return ResponseEntity<List<AnimalResource>>
+     */
     @GetMapping("/{animalId}")
     public ResponseEntity<AnimalResource> getAnimalById(@PathVariable Long animalId) {
         var getAnimalByIdQuery = new GetAnimalByIdQuery(animalId);
@@ -77,7 +92,12 @@ public class AnimalController {
         return ResponseEntity.ok(animalResource);
     }
 
-    // PUT method to update an animal
+
+    /**
+     * This method updates an animal by ID.
+     * @param animalId
+     * @param res
+     */
     @PutMapping("/{animalId}")
     public ResponseEntity<AnimalResource> updateAnimal(@PathVariable Long animalId, @RequestBody UpdateAnimalResource res) {
         var updateAnimalCommand = UpdateAnimalCommandFromResourceAssembler.toCommandFromResource(animalId, res);
@@ -89,7 +109,11 @@ public class AnimalController {
         return ResponseEntity.ok(animalResource);
     }
 
-    // DELETE method to delete an animal
+    /**
+     * This method deletes an animal by ID.
+     * @param animalId
+     * @return ResponseEntity<?>
+     */
     @DeleteMapping("/{animalId}")
     public ResponseEntity<?> deleteAnimal(@PathVariable Long animalId) {
         var deleteAnimalCommand = new DeleteAnimalCommand(animalId);

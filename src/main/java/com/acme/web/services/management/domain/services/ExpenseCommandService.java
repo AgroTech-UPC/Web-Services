@@ -9,6 +9,9 @@ import java.util.Optional;
 
 /**
  * Expense command service interface.
+ * It defines the methods that must be implemented by the ExpenseCommandServiceImpl class.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 public interface ExpenseCommandService {
     Long handle(CreateExpenseCommand command);

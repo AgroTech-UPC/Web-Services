@@ -7,6 +7,12 @@ import com.acme.web.services.user.domain.services.AdvisorCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class represents the service implementation for the AdvisorCommandService.
+ * It handles the creation of an advisor.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
 @Service
 public class AdvisorCommandServiceImpl implements AdvisorCommandService{
     private final AdvisorRepository advisorRepository;

@@ -8,6 +8,12 @@ import com.acme.web.services.appointment.domain.services.ReviewCommandService;
 import com.acme.web.services.appointment.infrastructure.persistance.jpa.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class represents the service implementation for the ReviewCommandService.
+ * @Author Andre Gabriel Valverde Mozo -U202218899
+ * @Version 1.0
+ */
+
 @Service
 public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final ReviewRepository reviewRepository;

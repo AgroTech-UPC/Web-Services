@@ -1,5 +1,7 @@
 package com.acme.web.services.management.application.internal.commandservices;
 
+import com.acme.web.services.management.domain.exceptions.CageNotFoundException;
+import com.acme.web.services.management.domain.exceptions.CageSaveException;
 import com.acme.web.services.management.domain.model.aggregates.Cage;
 import com.acme.web.services.management.domain.model.commands.CreateCageCommand;
 import com.acme.web.services.management.domain.model.commands.DeleteCageCommand;
@@ -9,13 +11,18 @@ import com.acme.web.services.management.domain.model.valueobjects.Observations;
 import com.acme.web.services.management.domain.model.valueobjects.Size;
 import com.acme.web.services.management.domain.services.CageCommandService;
 import com.acme.web.services.management.infrastructure.persitence.jpa.repositories.CageRepository;
+import com.acme.web.services.user.domain.exceptions.BreederNotFoundException;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.BreederRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 /**
- * Implementation of the CageCommandService interface
+ * This class represents the service implementation for the Cage aggregate.
+ * It implements the methods to create, update and delete a cage
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @Service
 public class CageCommandServiceImpl implements CageCommandService {
@@ -34,17 +41,17 @@ public class CageCommandServiceImpl implements CageCommandService {
      */
     @Override
     public Long handle(CreateCageCommand command) {
-        var breeder = breederRepository.findById(command.breederId());
-        if (breeder.isEmpty()) {
-            throw new IllegalArgumentException("Breeder does not exist");
-        }
+        //check if breeder exists
+        Breeder breeder = breederRepository
+                .findById(command.breederId()).orElseThrow(()
+                        -> new BreederNotFoundException(command.breederId()));
 
-        var cage = new Cage(command.name(), command.size(), command.observations(), breeder.get());
+        var cage = new Cage(command.name(), command.size(), command.observations(), breeder);
 
         try {
             cageRepository.save(cage);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Error while saving cage: " + e.getMessage());
+            throw new CageSaveException("Error while saving cage", e);
         }
         return cage.getId();
     }
@@ -72,7 +79,7 @@ public class CageCommandServiceImpl implements CageCommandService {
     @Override
     public Optional<Cage> handle(DeleteCageCommand command) {
         if(!cageRepository.existsById(command.cageId())){
-            throw new IllegalArgumentException("Cage does not exist");
+            throw new CageNotFoundException(command.cageId());
         }
         var cage = cageRepository.findById(command.cageId());
         cage.ifPresent(cageRepository::delete);

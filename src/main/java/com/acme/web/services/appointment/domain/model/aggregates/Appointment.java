@@ -13,7 +13,14 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
+/**
+ * This class represents the Appointment aggregate.
+ * It contains the attributes of the Appointment.
+ * It contains the constructor of the Appointment.
+ * It contains the methods to get the appointment date.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 @Getter
 @Entity
 public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
@@ -35,16 +42,29 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
     @JoinColumn(name = "advisor_id")
     private Advisor advisor;
 
+    /**
+     * This is the default constructor of the Appointment.
+     */
     public Appointment(){
         this.date = new DateAppointment();
         this.status = Status.PENDIENTE; // Default status
     }
 
+    /**
+     * This is the constructor of the Appointment.
+     * @param command
+     */
     public Appointment(CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
         this.status = Status.valueOf(command.status().toUpperCase());
     }
 
+    /**
+     * This is the constructor of the Appointment.
+     * @param breeder
+     * @param advisor
+     * @param command
+     */
     public Appointment(Breeder breeder, Advisor advisor, CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
         this.status = Status.valueOf(command.status().toUpperCase());
@@ -52,6 +72,7 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
         this.advisor = advisor;
     }
 
+    // Getters
     public Date getAppointmentDate(){
         return this.date.date();
     }

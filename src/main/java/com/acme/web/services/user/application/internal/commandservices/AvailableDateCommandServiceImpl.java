@@ -11,6 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * This class represents the service implementation for the AvailableDateCommandService.
+ * It handles the creation, update and deletion of an available date.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 @Service
 public class AvailableDateCommandServiceImpl implements AvailableDateCommandService {
     private final AvailableDateRepository availableDateRepository;

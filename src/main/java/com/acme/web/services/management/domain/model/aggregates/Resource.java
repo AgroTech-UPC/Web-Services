@@ -13,6 +13,9 @@ import java.time.LocalDate;
 
 /**
  * Resource aggregate root
+ * It contains the attributes of the resource, the constructor and the getters
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @Getter
 @Entity

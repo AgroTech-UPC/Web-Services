@@ -9,6 +9,9 @@ import java.util.Optional;
 
 /**
  * Cage command service interface.
+ * It defines the methods that must be implemented by the CageCommandService class.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 public interface CageCommandService {
     Long handle(CreateCageCommand command);

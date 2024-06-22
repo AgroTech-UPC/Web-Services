@@ -16,6 +16,13 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * This class represents the Reviews Controller.
+ * It contains the endpoints for the review management.
+ * It contains the methods to create a review, get all reviews and get a review by id.
+ * @author Andre Gabriel Valverde Mozo
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/reviews", produces = APPLICATION_JSON_VALUE)

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is cage aggregate root
+ * cage aggregate root
  * It contains the attributes of the cage, the constructor and the getters
  * @author Nadia Alessandra Lucas Coronel - u202120430
  * @version 1.0
