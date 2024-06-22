@@ -37,4 +37,8 @@ public class Breeder extends AuditableAbstractAggregateRoot<Breeder> {
     }
 
     public Breeder() {}
+
+    public Long getUserId() {
+        return this.user.getId();
+    }
 }

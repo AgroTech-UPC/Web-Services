@@ -14,6 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents the service implementation for the AdvisorCommandService.
+ * It handles the creation of an advisor.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
+
 @Service
 public class AdvisorCommandServiceImpl implements AdvisorCommandService{
     private final AdvisorRepository advisorRepository;

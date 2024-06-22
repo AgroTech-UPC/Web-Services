@@ -8,6 +8,12 @@ import com.acme.web.services.user.domain.services.NotificationCommandService;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.NotificationRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class represents the service implementation for the NotificationCommandService.
+ * It handles the creation and deletion of a notification.
+ * @Author Piero Gonzalo Delgado Corrales - U202210749
+ * @Version 1.0
+ */
 @Service
 public class NotificationCommandServiceImpl implements NotificationCommandService {
     private final NotificationRepository notificationRepository;

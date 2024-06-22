@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface BreederQueryService {
     List<Breeder> handle(GetAllBreedersQuery query);
     Optional<Breeder> handle(GetBreederByIdQuery query);
+    Long getUserIdByBreederId(Long breederId);
 }

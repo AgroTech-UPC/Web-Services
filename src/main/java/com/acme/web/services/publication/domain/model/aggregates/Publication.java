@@ -9,6 +9,14 @@ import lombok.Getter;
 
 import java.util.Date;
 
+
+/**
+ * Publication aggregate root
+ * It contains the attributes of the publication, the constructor and the getters
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
+ */
+
 @Getter
 @Entity
 public class Publication extends AuditableAbstractAggregateRoot<Publication> {

@@ -21,8 +21,11 @@ import java.util.List;
 
 /**
  * Resources Controller
+ * This class represents the REST controller for the Resources.
+ * It contains the endpoints for the Resource Management.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/resources", produces = APPLICATION_JSON_VALUE)
@@ -36,7 +39,11 @@ public class ResourcesController {
         this.resourceQueryService = resourceQueryService;
     }
 
-    //POST method to create a new resource
+    /**
+     * This method creates a new resource.
+     * @param res
+     * @return ResponseEntity<ResourceResource>
+     */
     @PostMapping
     public ResponseEntity<ResourceResource> createResource(@RequestBody CreateResourceResource res) {
         var createResourceCommand = CreateResourceCommandFromResourceAssembler.toCommandFromResource(res);
@@ -53,7 +60,10 @@ public class ResourcesController {
         return new ResponseEntity<>(resourceResource, HttpStatus.CREATED);
     }
 
-    //GET method to get all resources
+    /**
+     * This method gets all resources.
+     * @return ResponseEntity<List<ResourceResource>>
+     */
     @GetMapping
     public ResponseEntity<List<ResourceResource>> getAllResources() {
         var getAllResourcesQuery = new GetAllResourcesQuery();
@@ -62,7 +72,11 @@ public class ResourcesController {
         return ResponseEntity.ok(resourceResources);
     }
 
-    //GET method to get a resource by its ID
+    /**
+     * This method gets a resource by its ID.
+     * @param resourceId
+     * @return ResponseEntity<ResourceResource>
+     */
     @GetMapping("/{resourceId}")
     public ResponseEntity<ResourceResource> getResourceById(@PathVariable Long resourceId) {
         var getResourceByIdQuery = new GetResourceByIdQuery(resourceId);
@@ -74,7 +88,12 @@ public class ResourcesController {
         return ResponseEntity.ok(resourceResource);
     }
 
-    //PUT method to update a resource
+    /**
+     * This method updates a resource.
+     * @param resourceId
+     * @param res
+     * @return ResponseEntity<ResourceResource>
+     */
     @PutMapping("/{resourceId}")
     public ResponseEntity<ResourceResource> updateResource(@PathVariable Long resourceId, @RequestBody UpdateResourceResource res) {
         var updateResourceCommand = UpdateResourceCommandFromResourceAssembler.toCommandFromResource(resourceId, res);
@@ -86,7 +105,11 @@ public class ResourcesController {
         return ResponseEntity.ok(resourceResource);
     }
 
-    //DELETE method to delete a resource
+    /**
+     * This method deletes a resource.
+     * @param resourceId
+     * @return ResponseEntity<?>
+     */
     @DeleteMapping("/{resourceId}")
     public ResponseEntity<?> deleteResource(@PathVariable Long resourceId) {
         var deleteResourceCommand = new DeleteResourceCommand(resourceId);

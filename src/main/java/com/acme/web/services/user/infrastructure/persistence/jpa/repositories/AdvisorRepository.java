@@ -6,8 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * This interface represents the repository for the Advisor entity.
+ * It extends from JpaRepository to have access to CRUD operations.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
 @Repository
 public interface AdvisorRepository extends JpaRepository<Advisor, Long> {
-    Optional<Advisor> findByUserId(Long userId);
-    boolean existsByUserId(Long userId);
 }

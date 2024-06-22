@@ -1,5 +1,7 @@
 package com.acme.web.services.management.application.internal.commandservices;
 
+import com.acme.web.services.management.domain.exceptions.ExpenseNotFoundException;
+import com.acme.web.services.management.domain.exceptions.ExpenseSaveException;
 import com.acme.web.services.management.domain.model.aggregates.Expense;
 import com.acme.web.services.management.domain.model.commands.CreateExpenseCommand;
 import com.acme.web.services.management.domain.model.commands.DeleteExpenseCommand;
@@ -7,13 +9,18 @@ import com.acme.web.services.management.domain.model.commands.UpdateExpenseComma
 import com.acme.web.services.management.domain.model.valueobjects.*;
 import com.acme.web.services.management.domain.services.ExpenseCommandService;
 import com.acme.web.services.management.infrastructure.persitence.jpa.repositories.ExpenseRepository;
+import com.acme.web.services.user.domain.exceptions.BreederNotFoundException;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.BreederRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 /**
- * Implementation of the ExpenseCommandService interface
+ * This class represents the service implementation for the Expense aggregate.
+ * It implements the methods to create, update and delete an expense.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 @Service
 public class ExpenseCommandServiceImpl implements ExpenseCommandService {
@@ -33,15 +40,17 @@ public class ExpenseCommandServiceImpl implements ExpenseCommandService {
 
     @Override
     public Long handle(CreateExpenseCommand command) {
-        var breeder = breederRepository.findById(command.breederId());
-        if (breeder.isEmpty()){
-            throw new IllegalArgumentException("Breeder does not exist");
-        }
-        var expense = new Expense(command, breeder.get());
+        //check if breeder exists
+        Breeder breeder = breederRepository
+                .findById(command.breederId()).orElseThrow(()
+                        -> new BreederNotFoundException(command.breederId()));
+
+        //create and save the expense
+        Expense expense = new Expense(command, breeder);
         try {
             expenseRepository.save(expense);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Error while saving expense: " + e.getMessage());
+            throw new ExpenseSaveException("Error while saving expense", e);
         }
         return expense.getId();
     }
@@ -71,7 +80,7 @@ public class ExpenseCommandServiceImpl implements ExpenseCommandService {
     @Override
     public Optional<Expense> handle(DeleteExpenseCommand command) {
         if (!expenseRepository.existsById(command.expenseId())) {
-            throw new IllegalArgumentException("Expense does not exist");
+            throw new ExpenseNotFoundException(command.expenseId());
         }
         var expense = expenseRepository.findById(command.expenseId());
         expense.ifPresent(expenseRepository::delete);

@@ -28,4 +28,14 @@ public class AdvisorQueryServiceImpl implements AdvisorQueryService {
         return advisorRepository.findById(query.advisorId());
     }
 
+    @Override
+    public Long getUserIdByAdvisorId(Long advisorId) {
+        // Fetch the Advisor by the given advisorId
+        Optional<Advisor> optionalAdvisor = advisorRepository.findById(advisorId);
+
+        // If the Advisor exists, return its userId, otherwise return null
+        return optionalAdvisor.map(Advisor::getUserId).orElse(null);
+    }
+
+
 }

@@ -57,4 +57,8 @@ public class Advisor extends AuditableAbstractAggregateRoot<Advisor> {
     }
 
     public Advisor() {}
+
+    public Long getUserId() {
+        return this.user.getId();
+    }
 }

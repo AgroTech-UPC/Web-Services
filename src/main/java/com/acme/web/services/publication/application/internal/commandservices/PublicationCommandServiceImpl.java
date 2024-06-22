@@ -8,6 +8,13 @@ import com.acme.web.services.publication.infrastructure.persistence.jpa.reposito
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class represents the service implementation for the PublicationCommandService.
+ * It contains the methods to handle the commands related to publications.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
+ */
+
 @Service
 public class PublicationCommandServiceImpl implements PublicationCommandService {
     private final PublicationRepository publicationRepository;
