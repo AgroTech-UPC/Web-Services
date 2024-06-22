@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
     List<Resource> findAllByBreederId(Long breederId);
-    Optional<Resource> findByBreederId(Long breederId);
-    boolean existsByBreederId(Long breederId);
     List<Resource> findAllByResourceTypeAndBreederId(ResourceType type, Long breederId);
+
+    boolean existsByName(Name name);
 }

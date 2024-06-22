@@ -44,7 +44,7 @@ public class PublicationsController {
         var publication = publicationQueryService.handle(getPublicationByIdQuery);
         if (publication.isEmpty()) return ResponseEntity.badRequest().build();
         var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
-        return new ResponseEntity<>(publicationResource, HttpStatus.OK);
+        return new ResponseEntity<>(publicationResource, HttpStatus.CREATED);
     }
 
     /**
