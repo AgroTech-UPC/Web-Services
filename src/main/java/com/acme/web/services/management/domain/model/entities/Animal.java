@@ -11,6 +11,9 @@ import java.time.LocalDate;
 
 /**
  * Animal entity
+ * It contains the attributes of the Animal, the constructor and the getters.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @Getter
 @Entity
@@ -44,7 +47,6 @@ public class Animal {
     private Cage cage;
 
     public Animal() {}
-
 
     /**
      * Constructor

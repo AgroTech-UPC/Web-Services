@@ -26,6 +26,10 @@ import java.util.List;
 
 /**
  * CageController
+ * This class represents the REST controller for the Cage entity.
+ * It contains the endpoints for the Cage entity.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -42,7 +46,11 @@ public class CagesController {
         this.animalQueryService = animalQueryService;
     }
 
-    //POST method to create a new cage
+    /**
+     * This method creates a new cage.
+     * @param res
+     * @return ResponseEntity<CageResource>
+     */
     @PostMapping
     public ResponseEntity<CageResource> createCage(@RequestBody CreateCageResource res) {
         var createCageCommand = CreateCageCommandFromResourceAssembler.toCommandFromResource(res);
@@ -59,7 +67,10 @@ public class CagesController {
         return new ResponseEntity<>(cageResource, HttpStatus.CREATED);
     }
 
-    //GET method to get all cages
+    /**
+     * This method gets all cages.
+     * @return ResponseEntity<List<CageResource>>
+     */
     @GetMapping
     public ResponseEntity<List<CageResource>> getAllCages() {
         var getAllCagesQuery = new GetAllCagesQuery();
@@ -68,7 +79,11 @@ public class CagesController {
         return ResponseEntity.ok(cageResources);
     }
 
-    //GET method to get a cage by id
+    /**
+     * This method gets a cage by id.
+     * @param cageId
+     * @return ResponseEntity<CageResource>
+     */
     @GetMapping("/{cageId}")
     public ResponseEntity<CageResource> getCageById(@PathVariable Long cageId) {
         var getCageByIdQuery = new GetCageByIdQuery(cageId);
@@ -80,7 +95,11 @@ public class CagesController {
         return ResponseEntity.ok(cageResource);
     }
 
-    // GET method to get all animals in a cage
+    /**
+     * This method gets all animals in a cage.
+     * @param cageId
+     * @return ResponseEntity<List<AnimalResource>>
+     */
     @GetMapping("/{cageId}/animals")
     public ResponseEntity<List<AnimalResource>> getAnimalsByCageId(@PathVariable Long cageId) {
         var getAllAnimalsByCageIdQuery = new GetAllAnimalsByCageIdQuery(cageId);
@@ -89,7 +108,12 @@ public class CagesController {
         return ResponseEntity.ok(animalResources);
     }
 
-    //PUT method to update a cage
+    /**
+     * This method updates a cage.
+     * @param cageId
+     * @param res
+     * @return ResponseEntity<CageResource>
+     */
     @PutMapping("/{cageId}")
     public ResponseEntity<CageResource> updateCage(@PathVariable Long cageId, @RequestBody UpdateCageResource res) {
 
@@ -102,7 +126,11 @@ public class CagesController {
         return ResponseEntity.ok(cageResource);
     }
 
-    //DELETE method to delete a cage
+    /**
+     * This method deletes a cage.
+     * @param cageId
+     * @return ResponseEntity<?>
+     */
     @DeleteMapping("/{cageId}")
     public ResponseEntity<?> deleteCage(@PathVariable Long cageId) {
         var deleteCageCommand = new DeleteCageCommand(cageId);

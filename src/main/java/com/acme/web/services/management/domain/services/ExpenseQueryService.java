@@ -10,6 +10,9 @@ import java.util.Optional;
 
 /**
  * Expense query service interface.
+ * It defines the methods that must be implemented by the ExpenseQueryServiceImpl class.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 public interface ExpenseQueryService {
     List<Expense> handle(GetAllExpensesQuery query);

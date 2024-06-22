@@ -28,6 +28,12 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * This class represents the AppointmentsController.
+ * It contains the endpoints for the appointment management.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/appointments", produces = APPLICATION_JSON_VALUE)

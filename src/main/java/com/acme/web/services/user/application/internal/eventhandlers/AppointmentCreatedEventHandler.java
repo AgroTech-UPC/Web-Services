@@ -12,6 +12,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * This class is responsible for handling the AppointmentCreatedEvent.
+ * It creates a notification for the breeder and the advisor.
+ * It sends the notification to the breeder and the advisor.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
 @Service
 public class AppointmentCreatedEventHandler {
     private final BreederRepository breederRepository;

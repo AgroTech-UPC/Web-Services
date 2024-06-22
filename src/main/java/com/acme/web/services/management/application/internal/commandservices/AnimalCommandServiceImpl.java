@@ -1,5 +1,9 @@
 package com.acme.web.services.management.application.internal.commandservices;
 
+import com.acme.web.services.management.domain.exceptions.AnimalNotFoundException;
+import com.acme.web.services.management.domain.exceptions.AnimalSaveException;
+import com.acme.web.services.management.domain.exceptions.CageNotFoundException;
+import com.acme.web.services.management.domain.model.aggregates.Cage;
 import com.acme.web.services.management.domain.model.commands.CreateAnimalCommand;
 import com.acme.web.services.management.domain.model.commands.DeleteAnimalCommand;
 import com.acme.web.services.management.domain.model.commands.UpdateAnimalCommand;
@@ -13,7 +17,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Implementation of the AnimalCommandService interface
+ * This class represents the service implementation for the Animal emtity.
+ * It implements the methods to create, update and delete an animal.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 
 @Service
@@ -33,15 +40,16 @@ public class AnimalCommandServiceImpl implements AnimalCommandService {
      */
     @Override
     public Long handle(CreateAnimalCommand command) {
-        var cage = cageRepository.findById(command.cageId());
-        if (cage.isEmpty()) {
-            throw new IllegalArgumentException("Cage does not exist");
-        }
-        var animal = new Animal(command, cage.get());
+        //check if cage exists
+        Cage cage = cageRepository
+                .findById(command.cageId()).orElseThrow(()
+                        -> new CageNotFoundException(command.cageId()));
+
+        var animal = new Animal(command, cage);
         try {
             animalRepository.save(animal);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Error while saving animal: " + e.getMessage());
+            throw new AnimalSaveException("Error while saving animal", e);
         }
         return animal.getId();
     }
@@ -73,7 +81,7 @@ public class AnimalCommandServiceImpl implements AnimalCommandService {
     @Override
     public Optional<Animal> handle(DeleteAnimalCommand command) {
         if (!animalRepository.existsById(command.animalId())) {
-            throw new IllegalArgumentException("Animal does not exist");
+            throw new AnimalNotFoundException(command.animalId());
         }
         var animal = animalRepository.findById(command.animalId());
         animal.ifPresent(animalRepository::delete);

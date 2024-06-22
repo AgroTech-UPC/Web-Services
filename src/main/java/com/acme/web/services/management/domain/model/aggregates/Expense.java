@@ -12,7 +12,10 @@ import java.time.LocalDate;
 
 
 /**
- * Resource aggregate root
+ * Expense aggregate root
+ * It contains the attributes of the expense, the constructor and the getters
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 @Getter
 @Entity

@@ -22,6 +22,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Expenses Controller
+ * This class represents the REST controller for the Expenses Management Endpoints
+ * It contains the methods to create, get all, get by ID, update and delete expenses
+ * @author Salvador Antonio Salinas Torres
+ * @version 1.0
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

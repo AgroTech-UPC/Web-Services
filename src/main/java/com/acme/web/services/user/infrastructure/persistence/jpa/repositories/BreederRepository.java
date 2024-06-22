@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * This interface represents the repository for the Breeder entity.
+ * It extends the JpaRepository interface from Spring Data JPA.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
 @Repository
 public interface BreederRepository extends JpaRepository<Breeder, Long>{
 

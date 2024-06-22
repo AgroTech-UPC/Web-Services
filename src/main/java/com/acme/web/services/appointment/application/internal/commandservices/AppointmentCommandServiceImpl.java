@@ -11,6 +11,11 @@ import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.Br
 
 import org.springframework.stereotype.Service;
 
+/**
+ * This class represents the service implementation for the AppointmentCommandService.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 
 @Service
 public class AppointmentCommandServiceImpl implements AppointmentCommandService {
