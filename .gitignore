@@ -31,5 +31,3 @@ build/
 ### VS Code ###
 .vscode/
 
-### Target (Remove for deployment) ###
-/target/
