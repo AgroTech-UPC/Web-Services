@@ -33,6 +33,12 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * This class represents the REST controller for the Breeders.
+ * It contains the endpoints for the Breeders.
+ * @author Piero Gonzalo Delgado Corrales - U202210749
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/breeders", produces = APPLICATION_JSON_VALUE)

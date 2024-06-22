@@ -9,6 +9,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
+/**
+ * This class represents the Review entity.
+ * It contains the attributes of the Review.
+ * It contains the constructor of the Review.
+ * It contains the methods to get the review comment and rating.
+ * @author Andre Gabriel Valverde Mozo -U202218899
+ * @version 1.0
+ */
 
 @Getter
 @Entity
@@ -26,22 +34,33 @@ public class Review extends AuditableAbstractAggregateRoot<Review>{
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 
+
     public Review(){
         this.comment = "Sin Comentarios";
         this.rating = 0;
     }
 
+    /**
+     * Constructor of the Review entity.
+     * @param command
+     */
     public Review(CreateReviewCommand command){
         this.comment = command.comment();
         this.rating = command.rating();
     }
 
+    /**
+     * Constructor of the Review entity.
+     * @param appointment
+     * @param command
+     */
     public Review(Appointment appointment, CreateReviewCommand command){
         this.comment = command.comment();
         this.rating = command.rating();
         this.appointment = appointment;
     }
 
+    //getters
     public String getReviewComment(){
         return this.comment;
     }

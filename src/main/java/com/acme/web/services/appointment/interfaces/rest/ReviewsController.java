@@ -8,6 +8,7 @@ import com.acme.web.services.appointment.interfaces.rest.resources.CreateReviewR
 import com.acme.web.services.appointment.interfaces.rest.resources.ReviewResource;
 import com.acme.web.services.appointment.interfaces.rest.transform.CreateReviewCommandFromResourceAssembler;
 import com.acme.web.services.appointment.interfaces.rest.transform.ReviewResourceFromEntityAssembler;
+import com.acme.web.services.user.application.internal.commandservices.AdvisorCommandServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,13 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * This class represents the Reviews Controller.
+ * It contains the endpoints for the review management.
+ * It contains the methods to create a review, get all reviews and get a review by id.
+ * @author Andre Gabriel Valverde Mozo
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/reviews", produces = APPLICATION_JSON_VALUE)
@@ -23,10 +31,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ReviewsController {
     private final ReviewCommandService reviewsCommandService;
     private final ReviewQueryService reviewsQueryService;
+    private final AdvisorCommandServiceImpl advisorCommandService;
 
-    public ReviewsController(ReviewCommandService reviewsCommandService, ReviewQueryService reviewsQueryService) {
+    public ReviewsController(ReviewCommandService reviewsCommandService, ReviewQueryService reviewsQueryService, AdvisorCommandServiceImpl advisorCommandService) {
         this.reviewsCommandService = reviewsCommandService;
         this.reviewsQueryService = reviewsQueryService;
+        this.advisorCommandService = advisorCommandService;
     }
 
     /**
@@ -41,6 +51,7 @@ public class ReviewsController {
         if (reviewId == 0L) {
             return ResponseEntity.badRequest().build();
         }
+        advisorCommandService.updateAdvisorRating(reviewId);
         var getReviewByIdQuery = new GetReviewByIdQuery(reviewId);
         var review = reviewsQueryService.handle(getReviewByIdQuery);
         if (review.isEmpty()) {

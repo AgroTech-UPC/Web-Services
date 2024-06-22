@@ -1,6 +1,6 @@
 package com.acme.web.services.user.application.internal.queryservices;
 
-import com.acme.web.services.user.domain.model.entities.Advisor;
+import com.acme.web.services.user.domain.model.aggregates.Advisor;
  import com.acme.web.services.user.domain.model.queries.GetAllAdvisorsQuery;
 import com.acme.web.services.user.domain.model.queries.GetAdvisorByIdQuery;
 import com.acme.web.services.user.domain.services.AdvisorQueryService;
@@ -27,5 +27,15 @@ public class AdvisorQueryServiceImpl implements AdvisorQueryService {
     public Optional<Advisor> handle(GetAdvisorByIdQuery query){
         return advisorRepository.findById(query.advisorId());
     }
+
+    @Override
+    public Long getUserIdByAdvisorId(Long advisorId) {
+        // Fetch the Advisor by the given advisorId
+        Optional<Advisor> optionalAdvisor = advisorRepository.findById(advisorId);
+
+        // If the Advisor exists, return its userId, otherwise return null
+        return optionalAdvisor.map(Advisor::getUserId).orElse(null);
+    }
+
 
 }

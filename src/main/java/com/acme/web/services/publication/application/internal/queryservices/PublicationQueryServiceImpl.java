@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class represents the service implementation for the PublicationQueryService.
+ * It handles the queries related to the Publication entity.
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
+ */
+
 @Service
 public class PublicationQueryServiceImpl implements PublicationQueryService {
     private final PublicationRepository publicationRepository;

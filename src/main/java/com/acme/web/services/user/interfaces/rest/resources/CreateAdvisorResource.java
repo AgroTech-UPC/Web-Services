@@ -1,6 +1,6 @@
 package com.acme.web.services.user.interfaces.rest.resources;
 
-import com.acme.web.services.user.domain.model.aggregates.User;
+import java.time.LocalDate;
 
-public record CreateAdvisorResource(String occupation, int experience, String photo, int rating, Long userId) {
+public record CreateAdvisorResource(String fullname, String location, LocalDate birthdate, String description, String occupation, int experience, String photo, int rating, Long userId) {
 }

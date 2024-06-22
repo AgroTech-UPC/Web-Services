@@ -9,6 +9,9 @@ import java.util.Optional;
 
 /**
  * Interface for the AnimalCommandService.
+ * It defines the methods that must be implemented by the service.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 public interface AnimalCommandService {
     Long handle(CreateAnimalCommand command);

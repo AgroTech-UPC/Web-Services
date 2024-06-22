@@ -6,6 +6,10 @@ import com.acme.web.services.user.interfaces.rest.resources.CreateAdvisorResourc
 public class CreateAdvisorCommandFromResourceAssembler {
     public static CreateAdvisorCommand toCommandFromResource(CreateAdvisorResource resource){
         return new CreateAdvisorCommand(
+                resource.fullname(),
+                resource.location(),
+                resource.birthdate(),
+                resource.description(),
                 resource.occupation(),
                 resource.experience(),
                 resource.photo(),
