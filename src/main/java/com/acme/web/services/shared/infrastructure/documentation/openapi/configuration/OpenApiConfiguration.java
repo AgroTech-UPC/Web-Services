@@ -19,7 +19,7 @@ public class OpenApiConfiguration {
                 .info(new Info()
                         .title("ACME AgroConnect Web Services API")
                         .description("ACME AgroConnect web services application REST API documentation.")
-                        .version("v1.0.0")
+                        .version("v1.1.0")
                         .license(new License().name("Apache 2.0")
                                 .url("https://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
