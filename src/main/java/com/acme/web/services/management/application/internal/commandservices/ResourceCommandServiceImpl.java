@@ -69,14 +69,12 @@ public class ResourceCommandServiceImpl implements ResourceCommandService {
     @Override
     public Optional<Resource> handle(UpdateResourceCommand command) {
         return resourceRepository.findById(command.resourceId()).map(resource -> {
-            // Verificar si el nombre ya existe y es diferente al nombre actual del recurso
-            Name newName = new Name(command.name());
-            if (!resource.getName().equals(newName) && resourceRepository.existsByName(newName)) {
+            if (!resource.getName().equals(command.name()) && resourceRepository.existsByName(new Name(command.name()))) {
                 throw new ResourceNameAlreadyExistsException(command.name());
             }
 
             // Actualizar el recurso con los nuevos valores
-            resource.setName(newName);
+            resource.setName(new Name(command.name()));
             resource.setResourceType(ResourceType.valueOf(command.type().toUpperCase()));
             resource.setQuantity(new Quantity(command.quantity()));
             resource.setDate(new DateOfCreation(command.date()));
