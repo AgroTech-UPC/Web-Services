@@ -11,5 +11,6 @@ public record Quantity(Integer quantity) {
             throw new IllegalArgumentException("Resource quantity must be a positive integer");
         }
     }
+
 }
 

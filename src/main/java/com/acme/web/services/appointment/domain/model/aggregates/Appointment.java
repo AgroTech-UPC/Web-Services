@@ -50,6 +50,11 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
         this.status = Status.PENDIENTE; // Default status
     }
 
+    public Appointment(Date date, String status){
+        this.date = new DateAppointment(date);
+        this.status = Status.valueOf(status.toUpperCase());
+    }
+
     /**
      * This is the constructor of the Appointment.
      * @param command
