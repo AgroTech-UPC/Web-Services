@@ -1,6 +1,6 @@
 package com.acme.web.services.user.interfaces.rest.resources;
 
-import com.acme.web.services.user.domain.model.aggregates.User;
+import java.time.LocalDate;
 
-public record CreateBreederResource(Long userId) {
+public record CreateBreederResource(String fullname, String location, LocalDate birthdate, String description, Long userId) {
 }

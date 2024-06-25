@@ -1,20 +1,24 @@
 package com.acme.web.services.management.domain.model.aggregates;
 
 import com.acme.web.services.management.domain.model.commands.CreateCageCommand;
+import com.acme.web.services.management.domain.model.entities.Animal;
 import com.acme.web.services.management.domain.model.valueobjects.Name;
 import com.acme.web.services.management.domain.model.valueobjects.Observations;
 import com.acme.web.services.management.domain.model.valueobjects.Size;
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.acme.web.services.user.domain.model.entities.Breeder;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Cage aggregate root
+ * cage aggregate root
+ * It contains the attributes of the cage, the constructor and the getters
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 @Getter
 @Entity
@@ -35,6 +39,9 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
     @JoinColumn(name = "breeder_id")
     private Breeder breeder;
 
+    @OneToMany(mappedBy = "cage", cascade = CascadeType.ALL)
+    private List<Animal> animals;
+
     /**
      * Constructor
      * @param name
@@ -47,6 +54,7 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.size = new Size(size);
         this.observations = new Observations(observations);
         this.breeder = breeder;
+        this.animals = new ArrayList<>();
     }
 
     /**
@@ -61,6 +69,7 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.size = size;
         this.observations = observations;
         this.breeder = breeder;
+        this.animals = new ArrayList<>();
     }
 
     /**
@@ -73,6 +82,7 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
         this.size = new Size(command.size());
         this.observations = new Observations(command.observations());
         this.breeder = breeder;
+        this.animals = new ArrayList<>();
     }
 
     public Cage() {}

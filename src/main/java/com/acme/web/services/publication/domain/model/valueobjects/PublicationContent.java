@@ -19,6 +19,4 @@ public record PublicationContent(String title, String description, String image)
             throw new IllegalArgumentException("Image cannot be null or empty");
         }
     }
-
-
 }

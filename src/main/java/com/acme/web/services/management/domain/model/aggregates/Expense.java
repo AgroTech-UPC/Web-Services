@@ -3,7 +3,7 @@ package com.acme.web.services.management.domain.model.aggregates;
 import com.acme.web.services.management.domain.model.commands.CreateExpenseCommand;
 import com.acme.web.services.management.domain.model.valueobjects.*;
 import com.acme.web.services.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.acme.web.services.user.domain.model.entities.Breeder;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,10 @@ import java.time.LocalDate;
 
 
 /**
- * Resource aggregate root
+ * Expense aggregate root
+ * It contains the attributes of the expense, the constructor and the getters
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
  */
 @Getter
 @Entity

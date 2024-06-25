@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class represents the service implementation for the AppointmentQueryService.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 @Service
 public class AppointmentQueryServiceImpl implements AppointmentQueryService {
     private final AppointmentRepository appointmentRepository;

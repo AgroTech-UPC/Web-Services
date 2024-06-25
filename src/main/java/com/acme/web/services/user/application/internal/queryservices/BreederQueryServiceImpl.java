@@ -1,6 +1,6 @@
 package com.acme.web.services.user.application.internal.queryservices;
 
-import com.acme.web.services.user.domain.model.entities.Breeder;
+import com.acme.web.services.user.domain.model.aggregates.Breeder;
 import com.acme.web.services.user.domain.model.queries.GetAllBreedersQuery;
 import com.acme.web.services.user.domain.model.queries.GetBreederByIdQuery;
 import com.acme.web.services.user.domain.services.BreederQueryService;
@@ -27,4 +27,14 @@ public class BreederQueryServiceImpl implements BreederQueryService {
     public Optional<Breeder> handle(GetBreederByIdQuery query){
         return breederRepository.findById(query.breederId());
     }
+
+    @Override
+    public Long getUserIdByBreederId(Long breederId) {
+        // Fetch the Breeder by the given breederId
+        Optional<Breeder> optionalBreeder = breederRepository.findById(breederId);
+
+        // If the Breeder exists, return its userId, otherwise return null
+        return optionalBreeder.map(Breeder::getUserId).orElse(null);
+    }
+
 }

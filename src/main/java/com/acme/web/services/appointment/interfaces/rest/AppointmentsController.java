@@ -1,6 +1,7 @@
 package com.acme.web.services.appointment.interfaces.rest;
 
 
+import com.acme.web.services.appointment.domain.model.events.CreateNotificationByAppointmentCreated;
 import com.acme.web.services.appointment.domain.model.queries.GetAppointmentByIdQuery;
 import com.acme.web.services.appointment.domain.model.queries.GetReviewsByAppointmentIdQuery;
 import com.acme.web.services.appointment.domain.services.AppointmentCommandService;
@@ -18,6 +19,7 @@ import com.acme.web.services.appointment.interfaces.rest.transform.UpdateAppoint
 
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,12 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * This class represents the AppointmentsController.
+ * It contains the endpoints for the appointment management.
+ * @author Sebastián Roberto Paredes Puente -U202217239
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/api/v1/appointments", produces = APPLICATION_JSON_VALUE)
@@ -34,11 +42,13 @@ public class AppointmentsController {
     private final AppointmentCommandService appointmentCommandService;
     private final AppointmentQueryService appointmentQueryService;
     private final ReviewQueryService reviewQueryService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public AppointmentsController(AppointmentCommandService appointmentCommandService, AppointmentQueryService appointmentQueryService, ReviewQueryService reviewQueryService) {
+    public AppointmentsController(AppointmentCommandService appointmentCommandService, AppointmentQueryService appointmentQueryService, ReviewQueryService reviewQueryService, ApplicationEventPublisher eventPublisher) {
         this.appointmentCommandService = appointmentCommandService;
         this.appointmentQueryService = appointmentQueryService;
         this.reviewQueryService = reviewQueryService;
+        this.eventPublisher = eventPublisher;
     }
 
     /**
@@ -59,6 +69,10 @@ public class AppointmentsController {
             return ResponseEntity.badRequest().build();
         }
         var appointmentResource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(appointment.get());
+
+        // Publish the event
+        eventPublisher.publishEvent(new CreateNotificationByAppointmentCreated(this, appointmentResource.breederId(), appointmentResource.advisorId()));
+
         return new ResponseEntity<>(appointmentResource, HttpStatus.CREATED);
     }
 

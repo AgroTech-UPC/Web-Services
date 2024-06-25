@@ -8,8 +8,8 @@ public class AppointmentResourceFromEntityAssembler {
     public static AppointmentResource toResourceFromEntity(Appointment entity){
         return new AppointmentResource(
                 entity.getId(),
-                entity.getAdvisor().getId(),
                 entity.getBreeder().getId(),
+                entity.getAdvisor().getId(),
                 entity.getAppointmentDate(),
                 entity.getStatus().name() // Convert the Status enum to a String
         );

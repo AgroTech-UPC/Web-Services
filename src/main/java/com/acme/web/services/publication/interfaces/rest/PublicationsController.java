@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Publications Controller class
+ * Rest controller for publications management
+ * @author Salvador Antonio Salinas Torres - U20221B127
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/publications", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +50,7 @@ public class PublicationsController {
         var publication = publicationQueryService.handle(getPublicationByIdQuery);
         if (publication.isEmpty()) return ResponseEntity.badRequest().build();
         var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
-        return new ResponseEntity<>(publicationResource, HttpStatus.OK);
+        return new ResponseEntity<>(publicationResource, HttpStatus.CREATED);
     }
 
     /**

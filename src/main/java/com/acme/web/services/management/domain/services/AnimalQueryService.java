@@ -10,6 +10,9 @@ import java.util.Optional;
 
 /**
  * Interface for the Animal Query Service.
+ * It contains the methods that the Animal Query Service should implement.
+ * @author Nadia Alessandra Lucas Coronel - u202120430
+ * @version 1.0
  */
 public interface AnimalQueryService {
     List<Animal> handle(GetAllAnimalsQuery query);
