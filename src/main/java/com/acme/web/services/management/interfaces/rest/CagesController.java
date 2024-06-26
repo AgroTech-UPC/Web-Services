@@ -89,7 +89,7 @@ public class CagesController {
         var getCageByIdQuery = new GetCageByIdQuery(cageId);
         var cage = cageQueryService.handle(getCageByIdQuery);
         if (cage.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var cageResource = CageResourceFromEntityAssembler.toResourceFromEntity(cage.get());
         return ResponseEntity.ok(cageResource);
@@ -102,6 +102,11 @@ public class CagesController {
      */
     @GetMapping("/{cageId}/animals")
     public ResponseEntity<List<AnimalResource>> getAnimalsByCageId(@PathVariable Long cageId) {
+        var getCageByIdQuery = new GetCageByIdQuery(cageId);
+        var cage = cageQueryService.handle(getCageByIdQuery);
+        if (cage.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var getAllAnimalsByCageIdQuery = new GetAllAnimalsByCageIdQuery(cageId);
         var animals = animalQueryService.handle(getAllAnimalsByCageIdQuery);
         var animalResources = animals.stream().map(AnimalResourceFromEntityAssembler::toResourceFromEntity).toList();
@@ -116,11 +121,10 @@ public class CagesController {
      */
     @PutMapping("/{cageId}")
     public ResponseEntity<CageResource> updateCage(@PathVariable Long cageId, @RequestBody UpdateCageResource res) {
-
         var updateCageCommand = UpdateCageCommandFromResourceAssembler.toCommandFromResource(cageId, res);
         var updatedCage = cageCommandService.handle(updateCageCommand);
         if (updatedCage.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var cageResource = CageResourceFromEntityAssembler.toResourceFromEntity(updatedCage.get());
         return ResponseEntity.ok(cageResource);
@@ -133,9 +137,13 @@ public class CagesController {
      */
     @DeleteMapping("/{cageId}")
     public ResponseEntity<?> deleteCage(@PathVariable Long cageId) {
+        var getCageByIdQuery = new GetCageByIdQuery(cageId);
+        var cage = cageQueryService.handle(getCageByIdQuery);
+        if (cage.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var deleteCageCommand = new DeleteCageCommand(cageId);
-        var cageDeleted = cageCommandService.handle(deleteCageCommand);
-        if (cageDeleted.isEmpty()) return ResponseEntity.badRequest().build();
+        cageCommandService.handle(deleteCageCommand);
         return ResponseEntity.ok("Cage deleted successfully!");
     }
 }

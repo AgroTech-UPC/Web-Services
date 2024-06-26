@@ -82,7 +82,7 @@ public class ResourcesController {
         var getResourceByIdQuery = new GetResourceByIdQuery(resourceId);
         var resource = resourceQueryService.handle(getResourceByIdQuery);
         if (resource.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var resourceResource = ResourceResourceFromEntityAssembler.toResourceFromEntity(resource.get());
         return ResponseEntity.ok(resourceResource);
@@ -99,7 +99,7 @@ public class ResourcesController {
         var updateResourceCommand = UpdateResourceCommandFromResourceAssembler.toCommandFromResource(resourceId, res);
         var updateResource = resourceCommandService.handle(updateResourceCommand);
         if (updateResource.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var resourceResource = ResourceResourceFromEntityAssembler.toResourceFromEntity(updateResource.get());
         return ResponseEntity.ok(resourceResource);
@@ -112,11 +112,13 @@ public class ResourcesController {
      */
     @DeleteMapping("/{resourceId}")
     public ResponseEntity<?> deleteResource(@PathVariable Long resourceId) {
-        var deleteResourceCommand = new DeleteResourceCommand(resourceId);
-        var resourceDeleted = resourceCommandService.handle(deleteResourceCommand);
-        if (resourceDeleted.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+        var getResourceByIdQuery = new GetResourceByIdQuery(resourceId);
+        var resource = resourceQueryService.handle(getResourceByIdQuery);
+        if (resource.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+        var deleteResourceCommand = new DeleteResourceCommand(resourceId);
+        resourceCommandService.handle(deleteResourceCommand);
         return ResponseEntity.ok("Resource with given id successfully deleted");
     }
 }

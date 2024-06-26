@@ -89,6 +89,9 @@ public class PublicationsController {
      */
     @DeleteMapping("/{publicationId}")
     public ResponseEntity<?> deletePublication(@PathVariable Long publicationId) {
+        var getPublicationByIdQuery = new GetPublicationByIdQuery(publicationId);
+        var publication = publicationQueryService.handle(getPublicationByIdQuery);
+        if (publication.isEmpty()) return ResponseEntity.notFound().build();
         var deletePublicationCommand = new DeletePublicationCommand(publicationId);
         publicationCommandService.handle(deletePublicationCommand);
         return ResponseEntity.ok("Publication with given id successfully deleted");

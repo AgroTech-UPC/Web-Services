@@ -86,7 +86,7 @@ public class AnimalController {
         var getAnimalByIdQuery = new GetAnimalByIdQuery(animalId);
         var animal = animalQueryService.handle(getAnimalByIdQuery);
         if (animal.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var animalResource = AnimalResourceFromEntityAssembler.toResourceFromEntity(animal.get());
         return ResponseEntity.ok(animalResource);
@@ -103,7 +103,7 @@ public class AnimalController {
         var updateAnimalCommand = UpdateAnimalCommandFromResourceAssembler.toCommandFromResource(animalId, res);
         var updatedAnimal = animalCommandService.handle(updateAnimalCommand);
         if (updatedAnimal.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var animalResource = AnimalResourceFromEntityAssembler.toResourceFromEntity(updatedAnimal.get());
         return ResponseEntity.ok(animalResource);
@@ -116,9 +116,13 @@ public class AnimalController {
      */
     @DeleteMapping("/{animalId}")
     public ResponseEntity<?> deleteAnimal(@PathVariable Long animalId) {
+        var getAnimalByIdQuery = new GetAnimalByIdQuery(animalId);
+        var animal = animalQueryService.handle(getAnimalByIdQuery);
+        if (animal.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var deleteAnimalCommand = new DeleteAnimalCommand(animalId);
-        var animalDeleted = animalCommandService.handle(deleteAnimalCommand);
-        if (animalDeleted.isEmpty()) return ResponseEntity.badRequest().build();
+        animalCommandService.handle(deleteAnimalCommand);
         return ResponseEntity.ok("Animal deleted successfully!");
     }
 }

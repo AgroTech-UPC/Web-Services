@@ -80,7 +80,7 @@ public class ExpensesController {
     public ResponseEntity<ExpenseResource> getExpenseById(@PathVariable Long expenseId) {
         var getExpenseByIdQuery = new GetExpenseByIdQuery(expenseId);
         var expense = expenseQueryService.handle(getExpenseByIdQuery);
-        if (expense.isEmpty()) return ResponseEntity.badRequest().build();
+        if (expense.isEmpty()) return ResponseEntity.notFound().build();
         var expenseResource = ExpenseResourceFromEntityAssembler.toResourceFromEntity(expense.get());
         return ResponseEntity.ok(expenseResource);
     }
@@ -95,7 +95,7 @@ public class ExpensesController {
     public ResponseEntity<ExpenseResource> updateExpense(@PathVariable Long expenseId, @RequestBody UpdateExpenseResource resource) {
         var updateExpenseCommand = UpdateExpenseCommandFromResourceAssembler.toCommandFromResource(expenseId, resource);
         var updateExpense = expenseCommandService.handle(updateExpenseCommand);
-        if (updateExpense.isEmpty()) return ResponseEntity.badRequest().build();
+        if (updateExpense.isEmpty()) return ResponseEntity.notFound().build();
         var expenseResource = ExpenseResourceFromEntityAssembler.toResourceFromEntity(updateExpense.get());
         return ResponseEntity.ok(expenseResource);
     }
@@ -107,9 +107,11 @@ public class ExpensesController {
      */
     @DeleteMapping("/{expenseId}")
     public ResponseEntity<?> deleteExpense(@PathVariable Long expenseId) {
+        var getExpenseByIdQuery = new GetExpenseByIdQuery(expenseId);
+        var expense = expenseQueryService.handle(getExpenseByIdQuery);
+        if (expense.isEmpty()) return ResponseEntity.notFound().build();
         var deleteExpenseCommand = new DeleteExpenseCommand(expenseId);
-        var expenseDeleted = expenseCommandService.handle(deleteExpenseCommand);
-        if (expenseDeleted.isEmpty()) return ResponseEntity.badRequest().build();
+        expenseCommandService.handle(deleteExpenseCommand);
         return ResponseEntity.ok("Expense with given id successfully deleted");
     }
 

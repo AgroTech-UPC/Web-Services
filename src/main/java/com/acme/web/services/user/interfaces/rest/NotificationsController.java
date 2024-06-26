@@ -78,7 +78,12 @@ public class NotificationsController {
 
     @DeleteMapping("/{notificationId}")
     public ResponseEntity<?> deleteNotification(@PathVariable Long notificationId) {
-        var deleteNotificationCommand = new DeleteNotificationCommand(notificationId);
+        var getNotificationByIdQuery = new GetNotificationByIdQuery(notificationId);
+        var notification = notificationQueryService.handle(getNotificationByIdQuery);
+        if (notification.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        var deleteNotificationCommand = new DeleteNotificationCommand(notificationId);;
         notificationCommandService.handle(deleteNotificationCommand);
         return ResponseEntity.ok("Notification with given id successfully deleted");
     }

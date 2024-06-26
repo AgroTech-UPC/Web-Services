@@ -79,16 +79,21 @@ public class AvailableDatesController {
         var updateAvailableDateCommand = UpdateAvailableDateCommandFromResourceAssembler.toCommandFromResource(resource, availableDateId);
         var updatedAvailableDate = availableDateCommandService.handle(updateAvailableDateCommand);
         if (updatedAvailableDate.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         var updatedAvailableDateResource = AvailableDateResourceFromEntityAssembler.toResourceFromEntity(updatedAvailableDate.get());
         return ResponseEntity.ok(updatedAvailableDateResource);
     }
 
     @DeleteMapping("/{availableDateId}")
-    public ResponseEntity<Void> deleteAvailableDate(@PathVariable Long availableDateId) {
+    public ResponseEntity<?> deleteAvailableDate(@PathVariable Long availableDateId) {
+        var getAvailableDateByIdQuery = new GetAvailableDateByIdQuery(availableDateId);
+        var availableDate = availableDateQueryService.handle(getAvailableDateByIdQuery);
+        if (availableDate.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         var deleteAvailableDateCommand = new DeleteAvailableDateCommand(availableDateId);
         availableDateCommandService.handle(deleteAvailableDateCommand);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Available Date deleted successfully!");
     }
 }
