@@ -44,13 +44,13 @@ public class Expense extends AuditableAbstractAggregateRoot<Expense> {
     public Expense(){}
 
     /**
-     * Constructor
-     * @param name
-     * @param type
-     * @param amount
-     * @param date
-     * @param observations
-     * @param breeder
+     * Constructor with all attributes as value objects
+     * @param name the name of the expense
+     * @param type the type of the expense
+     * @param amount the amount of the expense
+     * @param date the date of the expense
+     * @param observations the observations of the expense
+     * @param breeder the breeder who made the expense
      */
     public Expense(Name name, ExpenseType type, Amount amount, DateOfCreation date, Observations observations, Breeder breeder) {
         this.name = name;
@@ -62,9 +62,9 @@ public class Expense extends AuditableAbstractAggregateRoot<Expense> {
     }
 
     /**
-     * Constructor
-     * @param command
-     * @param breeder
+     * Constructor with the command
+     * @param command the command to create an expense
+     * @param breeder the breeder who made the expense
      */
     public Expense(CreateExpenseCommand command, Breeder breeder) {
         this.name = new Name(command.name());

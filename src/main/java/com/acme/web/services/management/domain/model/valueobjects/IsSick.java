@@ -7,4 +7,9 @@ package com.acme.web.services.management.domain.model.valueobjects;
  */
 
 public record IsSick(Boolean isSick) {
+    public IsSick {
+        if (isSick == null) {
+            throw new IllegalArgumentException("IsSick cannot be null");
+        }
+    }
 }

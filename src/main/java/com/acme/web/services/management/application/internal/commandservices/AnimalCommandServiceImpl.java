@@ -44,6 +44,12 @@ public class AnimalCommandServiceImpl implements AnimalCommandService {
         Cage cage = cageRepository
                 .findById(command.cageId()).orElseThrow(()
                         -> new CageNotFoundException(command.cageId()));
+        // check if breed is valid
+        try {
+            Breed.valueOf(command.breed().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid breed");
+        }
 
         var animal = new Animal(command, cage);
         try {
@@ -61,6 +67,13 @@ public class AnimalCommandServiceImpl implements AnimalCommandService {
      */
     @Override
     public Optional<Animal> handle(UpdateAnimalCommand command) {
+        // check if breed is valid
+        try {
+            Breed.valueOf(command.breed().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid breed");
+        }
+
         return animalRepository.findById(command.animalId()).map(animal -> {
             animal.setName(new Name(command.name()));
             animal.setBreed(Breed.valueOf(command.breed().toUpperCase()));

@@ -46,6 +46,12 @@ public class ResourceCommandServiceImpl implements ResourceCommandService {
                 .findById(command.breederId()).orElseThrow(()
                         -> new BreederNotFoundException(command.breederId()));
 
+        //check if type is valid
+        try {
+            ResourceType.valueOf(command.type().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid resource type");
+        }
         //check if name already exists
         Name name = new Name(command.name());
         if(resourceRepository.existsByName(name)){
@@ -68,6 +74,12 @@ public class ResourceCommandServiceImpl implements ResourceCommandService {
      */
     @Override
     public Optional<Resource> handle(UpdateResourceCommand command) {
+        //check if type is valid
+        try {
+            ResourceType.valueOf(command.type().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid resource type");
+        }
         return resourceRepository.findById(command.resourceId()).map(resource -> {
             if (!resource.getName().equals(command.name()) && resourceRepository.existsByName(new Name(command.name()))) {
                 throw new ResourceNameAlreadyExistsException(command.name());

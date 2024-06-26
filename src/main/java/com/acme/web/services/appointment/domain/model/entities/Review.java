@@ -42,7 +42,7 @@ public class Review extends AuditableAbstractAggregateRoot<Review>{
 
     /**
      * Constructor of the Review entity.
-     * @param command
+     * @param command the command to create a review
      */
     public Review(CreateReviewCommand command){
         this.comment = command.comment();
@@ -51,8 +51,8 @@ public class Review extends AuditableAbstractAggregateRoot<Review>{
 
     /**
      * Constructor of the Review entity.
-     * @param appointment
-     * @param command
+     * @param appointment the appointment to create a review
+     * @param command the command to create a review
      */
     public Review(Appointment appointment, CreateReviewCommand command){
         this.comment = command.comment();

@@ -7,4 +7,9 @@ package com.acme.web.services.management.domain.model.valueobjects;
  */
 
 public record Gender(Boolean gender) {
+    public Gender {
+        if (gender == null) {
+            throw new IllegalArgumentException("Gender cannot be null");
+        }
+    }
 }

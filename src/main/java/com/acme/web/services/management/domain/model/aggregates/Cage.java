@@ -44,10 +44,10 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
 
     /**
      * Constructor
-     * @param name
-     * @param size
-     * @param observations
-     * @param breeder
+     * @param name name of the cage
+     * @param size size of the cage
+     * @param observations observations of the cage
+     * @param breeder breeder who owns the cage
      */
     public Cage(String name, Integer size, String observations, Breeder breeder){
         this.name = new Name(name);
@@ -58,11 +58,11 @@ public class Cage extends AuditableAbstractAggregateRoot<Cage> {
     }
 
     /**
-     * Constructor
-     * @param name
-     * @param size
-     * @param observations
-     * @param breeder
+     * Constructor with attributes as value objects
+     * @param name name of the cage
+     * @param size size of the cage
+     * @param observations observations of the cage
+     * @param breeder breeder who owns the cage
      */
     public Cage(Name name, Size size, Observations observations, Breeder breeder) {
         this.name = name;

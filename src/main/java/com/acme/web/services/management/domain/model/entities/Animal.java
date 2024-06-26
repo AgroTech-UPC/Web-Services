@@ -49,15 +49,15 @@ public class Animal {
     public Animal() {}
 
     /**
-     * Constructor
-     * @param name
-     * @param breed
-     * @param gender
-     * @param birthdate
-     * @param weight
-     * @param isSick
-     * @param observations
-     * @param cage
+     * Constructor with all attributes in its original type
+     * @param name the name of the animal
+     * @param breed the breed of the animal
+     * @param gender the gender of the animal
+     * @param birthdate the birthdate of the animal
+     * @param weight the weight of the animal
+     * @param isSick if the animal is sick
+     * @param observations the observations of the animal
+     * @param cage the cage where the animal is located
      */
     public Animal(String name, String breed, Boolean gender, LocalDate birthdate, Float weight, Boolean isSick, String observations, Cage cage) {
         this.name = new Name(name);
@@ -71,15 +71,15 @@ public class Animal {
     }
 
     /**
-     * Constructor
-     * @param name
-     * @param breed
-     * @param gender
-     * @param birthdate
-     * @param weight
-     * @param isSick
-     * @param observations
-     * @param cage
+     * Constructor with all attributes as value objects
+     * @param name the name of the animal
+     * @param breed the breed of the animal
+     * @param gender the gender of the animal
+     * @param birthdate the birthdate of the animal
+     * @param weight the weight of the animal
+     * @param isSick if the animal is sick
+     * @param observations the observations of the animal
+     * @param cage the cage where the animal is located
      */
     public Animal(Name name, Breed breed, Gender gender, Birthdate birthdate, Weight weight, IsSick isSick, Observations observations, Cage cage) {
         this.name = name;
@@ -93,9 +93,9 @@ public class Animal {
     }
 
     /**
-     * Constructor
-     * @param command
-     * @param cage
+     * Constructor with command
+     * @param command the command to create an animal
+     * @param cage the cage where the animal is located
      */
     public Animal(CreateAnimalCommand command, Cage cage) {
         this.name = new Name(command.name());

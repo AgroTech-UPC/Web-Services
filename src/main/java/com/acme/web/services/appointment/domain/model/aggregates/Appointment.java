@@ -57,7 +57,7 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
 
     /**
      * This is the constructor of the Appointment.
-     * @param command
+     * @param command the command to create an appointment
      */
     public Appointment(CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());
@@ -66,9 +66,9 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
 
     /**
      * This is the constructor of the Appointment.
-     * @param breeder
-     * @param advisor
-     * @param command
+     * @param breeder the breeder of the appointment
+     * @param advisor the advisor of the appointment
+     * @param command the command to create an appointment
      */
     public Appointment(Breeder breeder, Advisor advisor, CreateAppointmentCommand command){
         this.date = new DateAppointment(command.date());

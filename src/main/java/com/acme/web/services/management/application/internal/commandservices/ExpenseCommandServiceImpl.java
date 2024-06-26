@@ -45,6 +45,12 @@ public class ExpenseCommandServiceImpl implements ExpenseCommandService {
                 .findById(command.breederId()).orElseThrow(()
                         -> new BreederNotFoundException(command.breederId()));
 
+        //check if expense type is valid
+        try {
+            ExpenseType.valueOf(command.type().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid expense type");
+        }
         //create and save the expense
         Expense expense = new Expense(command, breeder);
         try {
@@ -62,6 +68,12 @@ public class ExpenseCommandServiceImpl implements ExpenseCommandService {
      */
     @Override
     public Optional<Expense> handle(UpdateExpenseCommand command) {
+        //check if expense type is valid
+        try {
+            ExpenseType.valueOf(command.type().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid expense type");
+        }
         return expenseRepository.findById(command.expenseId()).map(expense -> {
             expense.setName(new Name(command.name()));
             expense.setExpenseType(ExpenseType.valueOf(command.type().toUpperCase()));

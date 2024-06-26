@@ -45,6 +45,10 @@ public class Advisor extends AuditableAbstractAggregateRoot<Advisor> {
     private int rating;
 
     public Advisor(CreateAdvisorCommand command, User user) {
+        //check if string fields are in blank
+        if (command.fullname().isBlank() || command.location().isBlank() || command.description().isBlank() || command.occupation().isBlank() || command.photo().isBlank()) {
+            throw new IllegalArgumentException("No field can be blank");
+        }
         this.fullname = command.fullname();
         this.location = command.location();
         this.birthdate = command.birthdate();

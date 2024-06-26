@@ -44,13 +44,13 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     public Resource(){}
 
     /**
-     * Constructor
-     * @param name
-     * @param type
-     * @param quantity
-     * @param date
-     * @param observations
-     * @param breeder
+     * Constructor with attributes as value objects
+     * @param name name of the resource
+     * @param type type of the resource
+     * @param quantity quantity of the resource
+     * @param date date of creation of the resource
+     * @param observations observations of the resource
+     * @param breeder breeder who owns the resource
      */
     public Resource(Name name, ResourceType type, Quantity quantity, DateOfCreation date, Observations observations, Breeder breeder) {
         this.name = name;
@@ -62,9 +62,9 @@ public class Resource extends AuditableAbstractAggregateRoot<Resource> {
     }
 
     /**
-     * Constructor
-     * @param command
-     * @param breeder
+     * Constructor with command
+     * @param command command to create a resource
+     * @param breeder breeder who owns the resource
      */
     public Resource(CreateResourceCommand command, Breeder breeder) {
         this.name = new Name(command.name());
