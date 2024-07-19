@@ -3,7 +3,7 @@ package com.acme.web.services.user.interfaces.rest;
 import com.acme.web.services.appointment.domain.model.queries.GetAllAppointmentsByAdvisorIdQuery;
 import com.acme.web.services.appointment.interfaces.rest.resources.AppointmentResource;
 import com.acme.web.services.appointment.interfaces.rest.transform.AppointmentResourceFromEntityAssembler;
-import com.acme.web.services.publication.domain.model.queries.GetAllPublicationsByAdvisorIdQuery;
+import com.acme.web.services.publication.domain.model.queries.GetPublicationsByAdvisorIdQuery;
 import com.acme.web.services.publication.domain.services.PublicationQueryService;
 import com.acme.web.services.publication.interfaces.rest.resources.PublicationResource;
 import com.acme.web.services.publication.interfaces.rest.transform.PublicationResourceFromEntityAssembler;
@@ -126,7 +126,7 @@ public class AdvisorsController {
         if (advisor.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        var getAllPublicationsByAdvisorIdQuery = new GetAllPublicationsByAdvisorIdQuery(advisorId);
+        var getAllPublicationsByAdvisorIdQuery = new GetPublicationsByAdvisorIdQuery(advisorId);
         var publications = publicationQueryService.handle(getAllPublicationsByAdvisorIdQuery);
         var publicationResources = publications.stream().map(PublicationResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(publicationResources);

@@ -7,8 +7,10 @@ import com.acme.web.services.publication.domain.services.PublicationCommandServi
 import com.acme.web.services.publication.domain.services.PublicationQueryService;
 import com.acme.web.services.publication.interfaces.rest.resources.CreatePublicationResource;
 import com.acme.web.services.publication.interfaces.rest.resources.PublicationResource;
+import com.acme.web.services.publication.interfaces.rest.resources.UpdatePublicationResource;
 import com.acme.web.services.publication.interfaces.rest.transform.CreatePublicationCommandFromResourceAssembler;
 import com.acme.web.services.publication.interfaces.rest.transform.PublicationResourceFromEntityAssembler;
+import com.acme.web.services.publication.interfaces.rest.transform.UpdatePublicationCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -70,7 +72,7 @@ public class PublicationsController {
 
     /**
      * Get publication by id
-     * @param publicationId
+     * @param publicationId Publication id
      * @return Publication resource
      */
     @GetMapping("/{publicationId}")
@@ -78,6 +80,24 @@ public class PublicationsController {
         var getPublicationByIdQuery = new GetPublicationByIdQuery(publicationId);
         var publication = publicationQueryService.handle(getPublicationByIdQuery);
         if (publication.isEmpty()) return ResponseEntity.notFound().build();
+        var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
+        return ResponseEntity.ok(publicationResource);
+    }
+
+    /**
+     * Update publication by id
+     * @param publicationId Publication id
+     * @param resource Publication resource
+     * @return Publication resource
+     */
+    @PutMapping("/{publicationId}")
+    public ResponseEntity<PublicationResource> updatePublication(@PathVariable Long publicationId, @RequestBody UpdatePublicationResource resource) {
+        var updatePublicationCommand = UpdatePublicationCommandFromResourceAssembler.toCommandFromResource(resource, publicationId);
+        var updatedPublication = publicationCommandService.handle(updatePublicationCommand);
+        if (updatedPublication == 0L) return ResponseEntity.badRequest().build();
+        var getPublicationByIdQuery = new GetPublicationByIdQuery(updatedPublication);
+        var publication = publicationQueryService.handle(getPublicationByIdQuery);
+        if (publication.isEmpty()) return ResponseEntity.badRequest().build();
         var publicationResource = PublicationResourceFromEntityAssembler.toResourceFromEntity(publication.get());
         return ResponseEntity.ok(publicationResource);
     }

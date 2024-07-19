@@ -1,7 +1,7 @@
 package com.acme.web.services.publication.application.internal.queryservices;
 
 import com.acme.web.services.publication.domain.model.aggregates.Publication;
-import com.acme.web.services.publication.domain.model.queries.GetAllPublicationsByAdvisorIdQuery;
+import com.acme.web.services.publication.domain.model.queries.GetPublicationsByAdvisorIdQuery;
 import com.acme.web.services.publication.domain.model.queries.GetAllPublicationsQuery;
 import com.acme.web.services.publication.domain.model.queries.GetPublicationByIdQuery;
 import com.acme.web.services.publication.domain.services.PublicationQueryService;
@@ -37,7 +37,7 @@ public class PublicationQueryServiceImpl implements PublicationQueryService {
     }
 
     @Override
-    public List<Publication> handle(GetAllPublicationsByAdvisorIdQuery query) {
+    public List<Publication> handle(GetPublicationsByAdvisorIdQuery query) {
         return publicationRepository.findAllByAdvisorId(query.advisorId());
     }
 

@@ -3,6 +3,7 @@ package com.acme.web.services.publication.application.internal.commandservices;
 import com.acme.web.services.publication.domain.model.aggregates.Publication;
 import com.acme.web.services.publication.domain.model.commands.CreatePublicationCommand;
 import com.acme.web.services.publication.domain.model.commands.DeletePublicationCommand;
+import com.acme.web.services.publication.domain.model.commands.UpdatePublicationCommand;
 import com.acme.web.services.publication.domain.services.PublicationCommandService;
 import com.acme.web.services.publication.infrastructure.persistence.jpa.repositories.PublicationRepository;
 import com.acme.web.services.user.infrastructure.persistence.jpa.repositories.AdvisorRepository;
@@ -37,6 +38,23 @@ public class PublicationCommandServiceImpl implements PublicationCommandService 
         }
         catch (Exception e) {
             throw new IllegalArgumentException("Error while saving publication: " + e.getMessage());
+        }
+        return publication.getId();
+    }
+
+    @Override
+    public Long handle(UpdatePublicationCommand command)
+    {
+        var existingPublication = publicationRepository.findById(command.publicationId());
+        if (existingPublication.isEmpty()) {
+            throw new IllegalArgumentException("Publication does not exist");
+        }
+        var publication = existingPublication.get();
+        publication.updatePublicationContent(command.title(), command.description(), command.image());
+        try {
+            publicationRepository.save(publication);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error while updating publication: " + e.getMessage());
         }
         return publication.getId();
     }
